@@ -1,0 +1,20 @@
+# Snakemake 8+ SLURM executor — pip install snakemake-executor-plugin-slurm
+# snakemake --profile profile/slurm --use-conda --conda-prefix .snakemake/conda
+
+executor: slurm
+
+default-resources:
+  slurm_account: "katrine_lab"
+  slurm_partition: "standard"
+  runtime: 1440
+  cpus: 8
+  mem_mb: 16384
+
+set-threads:
+  assembly_flye: 16
+  medaka_polish: 8
+  minimap2_to_ref: 12
+
+jobs: 4
+use-conda: true
+conda-prefix: .snakemake/conda

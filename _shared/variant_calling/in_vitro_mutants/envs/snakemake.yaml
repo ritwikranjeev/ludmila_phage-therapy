@@ -1,0 +1,9 @@
+# Snakemake for workflow execution (if not using module or base install)
+name: snakemake
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python>=3.10
+  - snakemake>=7.0

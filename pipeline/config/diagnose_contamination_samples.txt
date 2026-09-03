@@ -1,0 +1,4 @@
+# High CheckM contamination that did not improve after contig cleanup — read-level diagnostics.
+BOR-10
+BOR-08
+BOR-15

@@ -1,0 +1,17 @@
+aa_new_seq	aa_position	aa_ref_seq	clone	codon_new_seq	codon_number	codon_position	codon_position_is_indeterminate	codon_ref_seq	gene_name	gene_position	gene_product	gene_strand	genes_inactivated	genes_overlapping	genes_promoter	locus_tag	locus_tags_inactivated	locus_tags_overlapping	locus_tags_promoter	mutation_category	mutator_status	new_read_count	new_read_count_basis	new_seq	population	position	position_end	position_start	ref_read_count	ref_read_count_basis	ref_seq	seq_id	snp_type	time	title	transl_table	treatment	type
+									DEBJFDCL_00152		p.Tyr76His					DEBJFDCL_00152				snp_synonymous				C		124894	124894	124894			T				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_00876		p.Ser4Cys					DEBJFDCL_00876				snp_synonymous				C		848821	848821	848821			G				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_00981		p.Asp8047Asn					DEBJFDCL_00981				snp_synonymous				T		969566	969566	969566			C				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_01109		p.Arg135Gln					DEBJFDCL_01109				snp_synonymous				T		1107547	1107547	1107547			C				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_01401		p.Gly184Gly					DEBJFDCL_01401				snp_synonymous				T		1421457	1421457	1421457			C				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_01461							DEBJFDCL_01461				deletion				T		1486788	1486788	1486788			TA				OCPT04SA03_vs_OCPT04SA01			DEL
+									DEBJFDCL_01664		p.Arg207His					DEBJFDCL_01664				snp_synonymous				A		1646692	1646692	1646692			G				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_01788							DEBJFDCL_01788				deletion				C		1789535	1789535	1789535			CT				OCPT04SA03_vs_OCPT04SA01			DEL
+									DEBJFDCL_01813		p.Gly302Gly					DEBJFDCL_01813				snp_synonymous				C		1807777	1807777	1807777			T				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_01878		p.Asp27Asp					DEBJFDCL_01878				snp_synonymous				A		1864240	1864240	1864240			G				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_01889		p.Asp8Val					DEBJFDCL_01889				snp_synonymous				T		1872589	1872589	1872589			A				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_02530		p.Lys70Arg					DEBJFDCL_02530				snp_synonymous				G		2573493	2573493	2573493			A				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_02618		p.Ser40Pro					DEBJFDCL_02618				snp_synonymous				C		2690354	2690354	2690354			T				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_02698							DEBJFDCL_02698				snp_nonsynonymous				C		2776779	2776779	2776779			T				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_02793		p.Glu123Lys					DEBJFDCL_02793				snp_synonymous				A		2866030	2866030	2866030			G				OCPT04SA03_vs_OCPT04SA01			SNP
+									DEBJFDCL_02808							DEBJFDCL_02808				deletion				G		2884865	2884865	2884865			GT				OCPT04SA03_vs_OCPT04SA01			DEL

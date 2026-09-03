@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python >=3.10
+  - mummer4
+  - matplotlib >=3.7

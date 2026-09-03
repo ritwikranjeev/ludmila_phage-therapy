@@ -1,0 +1,333 @@
+strain	gene	susceptible	panel	arm1	arm2	merged
+BOR-01	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-02	rplI (50S ribosomal protein L9)	0	BOR	1	0	1
+BOR-03	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-04	rplI (50S ribosomal protein L9)	1	BOR	0	0	0
+BOR-05	rplI (50S ribosomal protein L9)	0	BOR	0	0	0
+BOR-06	rplI (50S ribosomal protein L9)	0	BOR	1	0	1
+BOR-07	rplI (50S ribosomal protein L9)	0	BOR	0	1	1
+BOR-08	rplI (50S ribosomal protein L9)	0	BOR	1	0	1
+BOR-09	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-10	rplI (50S ribosomal protein L9)	0	BOR	1	1	1
+BOR-11	rplI (50S ribosomal protein L9)	0	BOR	1	0	1
+BOR-12	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-13	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-14	rplI (50S ribosomal protein L9)	0	BOR	0	1	1
+BOR-15	rplI (50S ribosomal protein L9)	0	BOR	1	1	1
+BOR-16	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-17	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-18	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-19	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-20	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-21	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-22	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-23	rplI (50S ribosomal protein L9)	0	BOR	0	1	1
+BOR-24	rplI (50S ribosomal protein L9)	1	BOR	1	0	1
+BOR-25	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-26	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-27	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-28	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-29	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-30	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-31	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-32	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-33	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+BOR-34	rplI (50S ribosomal protein L9)	1	BOR	0	1	1
+DTD-01	rplI (50S ribosomal protein L9)	0	DTD	0	1	1
+DTD-02	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-03	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-04	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-05	rplI (50S ribosomal protein L9)	0	DTD	0	1	1
+DTD-06	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-07	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-08	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-09	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-10	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-11	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-12	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-13	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-14	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-15	rplI (50S ribosomal protein L9)	0	DTD	1	0	1
+DTD-16	rplI (50S ribosomal protein L9)	0	DTD	1	0	1
+DTD-17	rplI (50S ribosomal protein L9)	0	DTD	0	1	1
+DTD-18	rplI (50S ribosomal protein L9)	0	DTD	1	0	1
+DTD-19	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-20	rplI (50S ribosomal protein L9)	1	DTD	1	0	1
+DTD-21	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-22	rplI (50S ribosomal protein L9)	1	DTD	1	0	1
+DTD-23	rplI (50S ribosomal protein L9)	0	DTD	1	0	1
+DTD-24	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-25	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-26	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-27	rplI (50S ribosomal protein L9)	0	DTD	0	1	1
+DTD-28	rplI (50S ribosomal protein L9)	1	DTD	0	1	1
+DTD-29	rplI (50S ribosomal protein L9)	1	DTD	1	0	1
+DTD-30	rplI (50S ribosomal protein L9)	0	DTD	1	0	1
+OCPT02SA01	rplI (50S ribosomal protein L9)	1	IN-HOUSE	0	1	1
+OCPT04SA01	rplI (50S ribosomal protein L9)	1	IN-HOUSE	1	0	1
+PedCF	rplI (50S ribosomal protein L9)	1	IN-HOUSE	0	1	1
+SA412	rplI (50S ribosomal protein L9)	1	IN-HOUSE	1	0	1
+USA300	rplI (50S ribosomal protein L9)	1	IN-HOUSE	1	0	1
+VISA-01	rplI (50S ribosomal protein L9)	1	VISA	0	1	1
+VISA-02	rplI (50S ribosomal protein L9)	0	VISA	1	0	1
+VISA-03	rplI (50S ribosomal protein L9)	0	VISA	1	0	1
+VISA-04	rplI (50S ribosomal protein L9)	0	VISA	0	1	1
+VISA-05	rplI (50S ribosomal protein L9)	0	VISA	0	1	1
+VISA-06	rplI (50S ribosomal protein L9)	0	VISA	0	1	1
+VISA-07	rplI (50S ribosomal protein L9)	0	VISA	1	0	1
+VISA-08	rplI (50S ribosomal protein L9)	1	VISA	0	1	1
+VISA-09	rplI (50S ribosomal protein L9)	0	VISA	1	0	1
+VISA-10	rplI (50S ribosomal protein L9)	1	VISA	0	1	1
+VISA-11	rplI (50S ribosomal protein L9)	0	VISA	1	0	1
+VISA-12	rplI (50S ribosomal protein L9)	0	VISA	1	0	1
+VISA-13	rplI (50S ribosomal protein L9)	0	VISA	0	1	1
+VISA-14	rplI (50S ribosomal protein L9)	0	VISA	0	1	1
+BOR-01	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-02	sraP (serine-rich adhesin)	0	BOR	0	0	0
+BOR-03	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-04	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-05	sraP (serine-rich adhesin)	0	BOR	1	1	1
+BOR-06	sraP (serine-rich adhesin)	0	BOR	1	0	1
+BOR-07	sraP (serine-rich adhesin)	0	BOR	1	0	1
+BOR-08	sraP (serine-rich adhesin)	0	BOR	0	0	0
+BOR-09	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-10	sraP (serine-rich adhesin)	0	BOR	1	0	1
+BOR-11	sraP (serine-rich adhesin)	0	BOR	1	0	1
+BOR-12	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-13	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-14	sraP (serine-rich adhesin)	0	BOR	1	0	1
+BOR-15	sraP (serine-rich adhesin)	0	BOR	0	0	0
+BOR-16	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-17	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-18	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-19	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-20	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-21	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-22	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-23	sraP (serine-rich adhesin)	0	BOR	0	1	1
+BOR-24	sraP (serine-rich adhesin)	1	BOR	0	1	1
+BOR-25	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-26	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-27	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-28	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-29	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-30	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-31	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-32	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-33	sraP (serine-rich adhesin)	1	BOR	1	0	1
+BOR-34	sraP (serine-rich adhesin)	1	BOR	1	0	1
+DTD-01	sraP (serine-rich adhesin)	0	DTD	1	0	1
+DTD-02	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-03	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-04	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-05	sraP (serine-rich adhesin)	0	DTD	1	0	1
+DTD-06	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-07	sraP (serine-rich adhesin)	1	DTD	1	1	1
+DTD-08	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-09	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-10	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-11	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-12	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-13	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-14	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-15	sraP (serine-rich adhesin)	0	DTD	0	1	1
+DTD-16	sraP (serine-rich adhesin)	0	DTD	0	1	1
+DTD-17	sraP (serine-rich adhesin)	0	DTD	1	0	1
+DTD-18	sraP (serine-rich adhesin)	0	DTD	0	1	1
+DTD-19	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-20	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-21	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-22	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-23	sraP (serine-rich adhesin)	0	DTD	1	0	1
+DTD-24	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-25	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-26	sraP (serine-rich adhesin)	1	DTD	1	1	1
+DTD-27	sraP (serine-rich adhesin)	0	DTD	1	0	1
+DTD-28	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-29	sraP (serine-rich adhesin)	1	DTD	1	0	1
+DTD-30	sraP (serine-rich adhesin)	0	DTD	1	0	1
+OCPT02SA01	sraP (serine-rich adhesin)	1	IN-HOUSE	1	0	1
+OCPT04SA01	sraP (serine-rich adhesin)	1	IN-HOUSE	1	0	1
+PedCF	sraP (serine-rich adhesin)	1	IN-HOUSE	1	0	1
+SA412	sraP (serine-rich adhesin)	1	IN-HOUSE	1	0	1
+USA300	sraP (serine-rich adhesin)	1	IN-HOUSE	1	0	1
+VISA-01	sraP (serine-rich adhesin)	1	VISA	1	0	1
+VISA-02	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-03	sraP (serine-rich adhesin)	0	VISA	0	1	1
+VISA-04	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-05	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-06	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-07	sraP (serine-rich adhesin)	0	VISA	0	1	1
+VISA-08	sraP (serine-rich adhesin)	1	VISA	1	0	1
+VISA-09	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-10	sraP (serine-rich adhesin)	1	VISA	1	0	1
+VISA-11	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-12	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-13	sraP (serine-rich adhesin)	0	VISA	1	0	1
+VISA-14	sraP (serine-rich adhesin)	0	VISA	1	0	1
+BOR-01	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-02	agrB (accessory gene regulator B)	0	BOR	1	0	1
+BOR-03	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-04	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-05	agrB (accessory gene regulator B)	0	BOR	1	0	1
+BOR-06	agrB (accessory gene regulator B)	0	BOR	0	1	1
+BOR-07	agrB (accessory gene regulator B)	0	BOR	1	0	1
+BOR-08	agrB (accessory gene regulator B)	0	BOR	1	0	1
+BOR-09	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-10	agrB (accessory gene regulator B)	0	BOR	0	1	1
+BOR-11	agrB (accessory gene regulator B)	0	BOR	0	1	1
+BOR-12	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-13	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-14	agrB (accessory gene regulator B)	0	BOR	1	0	1
+BOR-15	agrB (accessory gene regulator B)	0	BOR	0	1	1
+BOR-16	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-17	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-18	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-19	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-20	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-21	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-22	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-23	agrB (accessory gene regulator B)	0	BOR	1	0	1
+BOR-24	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-25	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-26	agrB (accessory gene regulator B)	1	BOR	1	0	1
+BOR-27	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-28	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-29	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-30	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-31	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-32	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-33	agrB (accessory gene regulator B)	1	BOR	0	1	1
+BOR-34	agrB (accessory gene regulator B)	1	BOR	0	1	1
+DTD-01	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-02	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-03	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-04	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-05	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-06	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-07	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-08	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-09	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-10	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-11	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-12	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-13	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-14	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-15	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-16	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-17	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-18	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-19	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-20	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-21	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-22	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-23	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-24	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-25	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-26	agrB (accessory gene regulator B)	1	DTD	1	0	1
+DTD-27	agrB (accessory gene regulator B)	0	DTD	0	1	1
+DTD-28	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-29	agrB (accessory gene regulator B)	1	DTD	0	1	1
+DTD-30	agrB (accessory gene regulator B)	0	DTD	0	1	1
+OCPT02SA01	agrB (accessory gene regulator B)	1	IN-HOUSE	0	1	1
+OCPT04SA01	agrB (accessory gene regulator B)	1	IN-HOUSE	0	1	1
+PedCF	agrB (accessory gene regulator B)	1	IN-HOUSE	1	0	1
+SA412	agrB (accessory gene regulator B)	1	IN-HOUSE	0	1	1
+USA300	agrB (accessory gene regulator B)	1	IN-HOUSE	0	1	1
+VISA-01	agrB (accessory gene regulator B)	1	VISA	1	0	1
+VISA-02	agrB (accessory gene regulator B)	0	VISA	0	1	1
+VISA-03	agrB (accessory gene regulator B)	0	VISA	0	1	1
+VISA-04	agrB (accessory gene regulator B)	0	VISA	1	0	1
+VISA-05	agrB (accessory gene regulator B)	0	VISA	1	0	1
+VISA-06	agrB (accessory gene regulator B)	0	VISA	1	0	1
+VISA-07	agrB (accessory gene regulator B)	0	VISA	0	1	1
+VISA-08	agrB (accessory gene regulator B)	1	VISA	1	0	1
+VISA-09	agrB (accessory gene regulator B)	0	VISA	0	1	1
+VISA-10	agrB (accessory gene regulator B)	1	VISA	1	0	1
+VISA-11	agrB (accessory gene regulator B)	0	VISA	0	1	1
+VISA-12	agrB (accessory gene regulator B)	0	VISA	0	1	1
+VISA-13	agrB (accessory gene regulator B)	0	VISA	1	0	1
+VISA-14	agrB (accessory gene regulator B)	0	VISA	1	0	1
+BOR-01	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-02	metXA (homoserine O-acetyltransferase)	0	BOR	1	0	1
+BOR-03	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-04	metXA (homoserine O-acetyltransferase)	1	BOR	0	0	0
+BOR-05	metXA (homoserine O-acetyltransferase)	0	BOR	1	0	1
+BOR-06	metXA (homoserine O-acetyltransferase)	0	BOR	0	0	0
+BOR-07	metXA (homoserine O-acetyltransferase)	0	BOR	0	1	1
+BOR-08	metXA (homoserine O-acetyltransferase)	0	BOR	1	1	1
+BOR-09	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-10	metXA (homoserine O-acetyltransferase)	0	BOR	1	1	1
+BOR-11	metXA (homoserine O-acetyltransferase)	0	BOR	0	0	0
+BOR-12	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-13	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-14	metXA (homoserine O-acetyltransferase)	0	BOR	0	1	1
+BOR-15	metXA (homoserine O-acetyltransferase)	0	BOR	1	1	1
+BOR-16	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-17	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-18	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-19	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-20	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-21	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-22	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-23	metXA (homoserine O-acetyltransferase)	0	BOR	0	1	1
+BOR-24	metXA (homoserine O-acetyltransferase)	1	BOR	1	0	1
+BOR-25	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-26	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-27	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-28	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-29	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-30	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-31	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-32	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-33	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+BOR-34	metXA (homoserine O-acetyltransferase)	1	BOR	0	1	1
+DTD-01	metXA (homoserine O-acetyltransferase)	0	DTD	0	1	1
+DTD-02	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-03	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-04	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-05	metXA (homoserine O-acetyltransferase)	0	DTD	0	1	1
+DTD-06	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-07	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-08	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-09	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-10	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-11	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-12	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-13	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-14	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-15	metXA (homoserine O-acetyltransferase)	0	DTD	1	0	1
+DTD-16	metXA (homoserine O-acetyltransferase)	0	DTD	1	0	1
+DTD-17	metXA (homoserine O-acetyltransferase)	0	DTD	0	1	1
+DTD-18	metXA (homoserine O-acetyltransferase)	0	DTD	1	0	1
+DTD-19	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-20	metXA (homoserine O-acetyltransferase)	1	DTD	1	0	1
+DTD-21	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-22	metXA (homoserine O-acetyltransferase)	1	DTD	1	0	1
+DTD-23	metXA (homoserine O-acetyltransferase)	0	DTD	1	0	1
+DTD-24	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-25	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-26	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-27	metXA (homoserine O-acetyltransferase)	0	DTD	0	1	1
+DTD-28	metXA (homoserine O-acetyltransferase)	1	DTD	0	1	1
+DTD-29	metXA (homoserine O-acetyltransferase)	1	DTD	1	0	1
+DTD-30	metXA (homoserine O-acetyltransferase)	0	DTD	1	0	1
+OCPT02SA01	metXA (homoserine O-acetyltransferase)	1	IN-HOUSE	0	1	1
+OCPT04SA01	metXA (homoserine O-acetyltransferase)	1	IN-HOUSE	1	0	1
+PedCF	metXA (homoserine O-acetyltransferase)	1	IN-HOUSE	0	1	1
+SA412	metXA (homoserine O-acetyltransferase)	1	IN-HOUSE	1	0	1
+USA300	metXA (homoserine O-acetyltransferase)	1	IN-HOUSE	1	0	1
+VISA-01	metXA (homoserine O-acetyltransferase)	1	VISA	0	1	1
+VISA-02	metXA (homoserine O-acetyltransferase)	0	VISA	1	0	1
+VISA-03	metXA (homoserine O-acetyltransferase)	0	VISA	1	0	1
+VISA-04	metXA (homoserine O-acetyltransferase)	0	VISA	0	1	1
+VISA-05	metXA (homoserine O-acetyltransferase)	0	VISA	0	1	1
+VISA-06	metXA (homoserine O-acetyltransferase)	0	VISA	0	1	1
+VISA-07	metXA (homoserine O-acetyltransferase)	0	VISA	1	0	1
+VISA-08	metXA (homoserine O-acetyltransferase)	1	VISA	0	1	1
+VISA-09	metXA (homoserine O-acetyltransferase)	0	VISA	1	0	1
+VISA-10	metXA (homoserine O-acetyltransferase)	1	VISA	0	1	1
+VISA-11	metXA (homoserine O-acetyltransferase)	0	VISA	1	0	1
+VISA-12	metXA (homoserine O-acetyltransferase)	0	VISA	1	0	1
+VISA-13	metXA (homoserine O-acetyltransferase)	0	VISA	0	1	1
+VISA-14	metXA (homoserine O-acetyltransferase)	0	VISA	0	1	1

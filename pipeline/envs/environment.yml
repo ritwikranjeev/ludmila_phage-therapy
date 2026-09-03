@@ -1,0 +1,27 @@
+name: host_phage_pipeline
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas
+  - scipy
+  - seaborn
+  - matplotlib
+  - fastqc
+  - fastp
+  - nanoplot
+  - spades
+  - flye
+  - unicycler
+  - quast
+  - prokka
+  - panaroo
+  - iqtree
+  - pyseer
+  - phispy
+  - defense-finder
+  - statsmodels  # optional but recommended: targeted deep-dive logistic / ordinal models
+  # Optional / tool-swappable:
+  # - padloc

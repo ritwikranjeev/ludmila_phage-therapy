@@ -1,0 +1,78 @@
+categories:
+  WTA_core:
+    - tagO
+    - tarO
+    - tagA
+    - tarA
+    - tagB
+    - tarB
+    - tagD
+    - tarD
+    - tagF
+    - tarF
+    - tagG
+    - tagH
+    - tarK
+    - tarL
+  WTA_glyco:
+    - tarM
+    - tarS
+    - tarP
+  D_alanylation:
+    - dltA
+    - dltB
+    - dltC
+    - dltD
+    - dltX
+  envelope_regulator:
+    - agrA
+    - agrC
+    - agrD
+    - agrB
+    - cdaR
+    - cdaP
+    - walR
+    - walK
+    - vraT
+    - vraS
+    - vraR
+    - graS
+    - graR
+    - arlR
+    - arlS
+  surface:
+    - spa
+    - ebh
+    - atl
+    - sasA
+    - sasB
+    - sasF
+  transporter:
+    - mdrP
+    - mprF
+  peptidoglycan:
+    - pbp1
+    - pbp2
+    - pbp3
+    - pbp4
+product_keywords:
+  WTA_core:
+    - wall teichoic acid
+    - teichoic acid polymerase
+  WTA_glyco:
+    - wall teichoic acid glycosyltransferase
+    - glycosyltransferase Tar
+  D_alanylation:
+    - d-alanine transfer
+    - dlt
+  envelope_regulator:
+    - two-component
+    - cell wall stress
+    - response regulator
+    - sensor kinase
+  surface:
+    - surface protein
+    - cell wall-anchored protein
+  transporter:
+    - antiporter
+    - transporter

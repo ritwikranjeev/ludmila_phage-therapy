@@ -1,0 +1,9 @@
+# FastQC for read QC reports (so SLURM jobs have it without modules on compute nodes)
+name: fastqc
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - fastqc>=0.11
+  - python>=3.8

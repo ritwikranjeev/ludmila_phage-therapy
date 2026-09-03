@@ -1,0 +1,11 @@
+# Conda env for Prokka (bacterial annotation)
+# channel_priority: flexible helps resolve parallel/prokka dependency on some systems.
+name: prokka
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+channel_priority: flexible
+dependencies:
+  - prokka>=1.14
+  - python>=3.8

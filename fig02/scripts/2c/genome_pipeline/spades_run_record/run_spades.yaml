@@ -1,0 +1,195 @@
+- STAGE: Before start
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: before_start
+- STAGE: Read error correction
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: ec_start
+- STAGE: Read error correction
+  args:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/corrected/configs/config.info
+  config_dir: corrected
+  del_after:
+  - tmp/hammer_m2dz_ses
+  output_files:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/corrected/corrected.yaml
+  path: /opt/apps/SPAdes/3.15.4/bin/spades-hammer
+  short_name: ec_runtool
+- STAGE: corrected reads compression
+  args:
+  - /opt/apps/SPAdes/3.15.4/share/spades/spades_pipeline/scripts/compress_all.py
+  - --input_file
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/corrected/corrected.yaml
+  - --ext_python_modules_home
+  - /opt/apps/SPAdes/3.15.4/share/spades
+  - --max_threads
+  - '16'
+  - --output_dir
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/corrected
+  - --gzip_output
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: /opt/apps/python/3.10.2/bin/python
+  short_name: ec_compress
+- STAGE: Read error correction
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: ec_finish
+- STAGE: Assembling
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: as_start
+- STAGE: K21
+  args:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K21/configs/config.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K21/configs/mda_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K21/configs/meta_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K21/configs/plasmid_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K21/configs/metaviral_mode.info
+  config_dir: K21
+  del_after: []
+  output_files: []
+  path: /opt/apps/SPAdes/3.15.4/bin/spades-core
+  short_name: k21
+- STAGE: K33
+  args:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K33/configs/config.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K33/configs/mda_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K33/configs/meta_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K33/configs/plasmid_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K33/configs/metaviral_mode.info
+  config_dir: K33
+  del_after: []
+  output_files: []
+  path: /opt/apps/SPAdes/3.15.4/bin/spades-core
+  short_name: k33
+- STAGE: K55
+  args:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K55/configs/config.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K55/configs/mda_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K55/configs/meta_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K55/configs/plasmid_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K55/configs/metaviral_mode.info
+  config_dir: K55
+  del_after: []
+  output_files: []
+  path: /opt/apps/SPAdes/3.15.4/bin/spades-core
+  short_name: k55
+- STAGE: K77
+  args:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K77/configs/config.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K77/configs/mda_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K77/configs/meta_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K77/configs/plasmid_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K77/configs/metaviral_mode.info
+  config_dir: K77
+  del_after: []
+  output_files: []
+  path: /opt/apps/SPAdes/3.15.4/bin/spades-core
+  short_name: k77
+- STAGE: K99
+  args:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K99/configs/config.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K99/configs/mda_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K99/configs/meta_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K99/configs/plasmid_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K99/configs/metaviral_mode.info
+  config_dir: K99
+  del_after: []
+  output_files: []
+  path: /opt/apps/SPAdes/3.15.4/bin/spades-core
+  short_name: k99
+- STAGE: K127
+  args:
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/configs/config.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/configs/mda_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/configs/meta_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/configs/plasmid_mode.info
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/configs/metaviral_mode.info
+  config_dir: K127
+  del_after: []
+  output_files: []
+  path: /opt/apps/SPAdes/3.15.4/bin/spades-core
+  short_name: k127
+- STAGE: metaextrachromosomal glue files
+  args:
+  - /opt/apps/SPAdes/3.15.4/share/spades/spades_pipeline/scripts/plasmid_glue.py
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: /opt/apps/python/3.10.2/bin/python
+  short_name: plasmid_copy_files
+- STAGE: Copy files
+  args:
+  - /opt/apps/SPAdes/3.15.4/share/spades/spades_pipeline/scripts/copy_files.py
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/before_rr.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/before_rr.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/assembly_graph_after_simplification.gfa
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/assembly_graph_after_simplification.gfa
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/final_contigs.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/contigs.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/first_pe_contigs.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/first_pe_contigs.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/strain_graph.gfa
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/strain_graph.gfa
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/scaffolds.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/scaffolds.fasta
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/scaffolds.paths
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/scaffolds.paths
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/assembly_graph_with_scaffolds.gfa
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/assembly_graph_with_scaffolds.gfa
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/assembly_graph.fastg
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/assembly_graph.fastg
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/K127/final_contigs.paths
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/contigs.paths
+  config_dir: ''
+  del_after:
+  - .bin_reads
+  - tmp/spades_hmcm0k37
+  output_files: []
+  path: /opt/apps/python/3.10.2/bin/python
+  short_name: copy_files
+- STAGE: Assembling
+  args: []
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: 'true'
+  short_name: as_finish
+- STAGE: Breaking scaffolds
+  args:
+  - /opt/apps/SPAdes/3.15.4/share/spades/spades_pipeline/scripts/breaking_scaffolds_script.py
+  - --result_scaffolds_filename
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/scaffolds.fasta
+  - --misc_dir
+  - /dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/misc
+  - --threshold_for_breaking_scaffolds
+  - '3'
+  config_dir: ''
+  del_after: []
+  output_files: []
+  path: /opt/apps/python/3.10.2/bin/python
+  short_name: bs
+- STAGE: Terminate
+  args: []
+  config_dir: ''
+  del_after:
+  - configs
+  output_files: []
+  path: 'true'
+  short_name: terminate

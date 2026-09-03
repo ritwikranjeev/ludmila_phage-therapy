@@ -1,0 +1,359 @@
+# Figure 5a mutation-calling pipeline (HPC3-ready, Snakemake)
+# Run from pipeline root: snakemake -s workflow/Snakefile [--config project_dir=/path]
+
+import shutil
+from pathlib import Path
+
+configfile: "config/config.yaml"
+
+PROJECT_DIR = config.get("project_dir", ".")
+RESULTS = Path(PROJECT_DIR) / config.get("results_dir", "results")
+DATA_DIR = Path(PROJECT_DIR) / config.get("data_dir", "data")
+SAMPLES_TSV = Path(PROJECT_DIR) / config.get("samples_tsv", "metadata/samples.tsv")
+RAW_READS = Path(PROJECT_DIR) / config.get("raw_reads_dir", "data/raw_fastqs")
+SCRIPT_DIR = Path("scripts")
+RESOURCES_DIR = Path("resources")
+
+def get_samples():
+    import csv
+    with open(SAMPLES_TSV) as f:
+        rows = list(csv.DictReader(f, delimiter="\t"))
+    return [r for r in rows if (r.get("sample_id") or "").strip()]
+
+def get_sample_ids():
+    return [r["sample_id"].strip() for r in get_samples()]
+
+def get_ref_groups():
+    return list(set(r["reference_group"].strip() for r in get_samples() if (r.get("reference_group") or "").strip()))
+
+def get_host_reference_ids():
+    return [r["sample_id"].strip() for r in get_samples() if (r.get("sample_type") or "").strip() == "host_reference"]
+
+def get_mutant_ids():
+    excluded = set(config.get("exclude_samples", []) or [])
+    return [r["sample_id"].strip() for r in get_samples() if (r.get("sample_type") or "").strip() == "resistant_mutant" and r["sample_id"].strip() not in excluded]
+
+def sample_row(sample_id):
+    for r in get_samples():
+        if r["sample_id"].strip() == sample_id:
+            return r
+    return None
+
+def ref_for_mutant(mutant_id):
+    row = sample_row(mutant_id)
+    return (row.get("reference_group") or "").strip() if row else None
+
+
+def breseq_parallel_jobs(wildcards, threads):
+    """S16.OCPT04SA01.4.6 peaks >100 GB RAM with -j 16 on HPC3 standard; use fewer breseq workers."""
+    if wildcards.sample_id == "S16.OCPT04SA01.4.6":
+        return 6
+    return threads
+
+def res(rule_name):
+    r = config.get("resources", {}).get(rule_name, {})
+    return {
+        "threads": r.get("threads", config.get("cluster", {}).get("threads", 4)),
+        "resources": {"mem_mb": r.get("mem_mb", config.get("cluster", {}).get("mem_mb", 8192))},
+    }
+
+def cluster_cmd(wildcards, thread_val):
+    c = config.get("cluster", {})
+    return (
+        f"sbatch -A {c.get('account', '')} -p {c.get('partition', 'standard')} "
+        f"-c {thread_val} --mem {c.get('mem_mb', 8192)} -t {c.get('time', '01:00:00')} "
+        f"-o logs/slurm/%x.%A.out -e logs/slurm/%x.%A.err"
+    )
+
+def get_rscript():
+    # Prefer the Snakemake-created breseq conda env R on HPC3 if available.
+    rscript = Path(PROJECT_DIR) / "envs/conda/ae711351d26df9fc6a32b273dbacf033_/bin/Rscript"
+    if rscript.exists():
+        return str(rscript)
+    return "Rscript"
+
+# --- All targets ---
+rule all:
+    input:
+        expand(RESULTS / "figures/figure5a_mutation_table.{ext}", ext=["png", "pdf"]),
+        RESULTS / "tables/figure5a_plot_table.tsv",
+        RESULTS / "validation/passed.flag",
+
+# --- Validation ---
+rule validate_samples:
+    input: SAMPLES_TSV
+    output: RESULTS / "validation/passed.flag"
+    params:
+        project_dir=PROJECT_DIR,
+        out_dir=RESULTS / "validation",
+    resources: threads=1, mem_mb=1024
+    shell:
+        "mkdir -p {params.out_dir} && python3 {SCRIPT_DIR}/validate_samples.py {input} --project-dir {params.project_dir} && touch {output}"
+
+# --- Read QC: fastp (and optional fastqc) per sample ---
+rule fastp:
+    input:
+        _val=RESULTS / "validation/passed.flag",
+        r1=lambda w: Path(PROJECT_DIR) / sample_row(w.sample_id)["read1"].strip(),
+        r2=lambda w: Path(PROJECT_DIR) / sample_row(w.sample_id)["read2"].strip(),
+    output:
+        r1=RESULTS / "qc/cleaned/{sample_id}_R1.fq.gz",
+        r2=RESULTS / "qc/cleaned/{sample_id}_R2.fq.gz",
+        json=RESULTS / "qc/fastp/{sample_id}_fastp.json",
+        html=RESULTS / "qc/fastp/{sample_id}_fastp.html",
+    params:
+        len_req=config.get("fastp", {}).get("length_required", 60),
+        win=config.get("fastp", {}).get("cut_window_size", 4),
+        qual=config.get("fastp", {}).get("cut_mean_quality", 20),
+    resources:
+        threads=config.get("resources", {}).get("fastp", {}).get("threads", 16),
+        mem_mb=8192,
+        runtime=config.get("resources", {}).get("fastp", {}).get("runtime_min", 240),  # minutes; executor sets --time
+    run:
+        r1 = Path(str(input.r1)).resolve()
+        r2 = Path(str(input.r2)).resolve()
+        out_dir = Path(output.r1).parent
+        out_dir.mkdir(parents=True, exist_ok=True)
+        Path(output.json).parent.mkdir(parents=True, exist_ok=True)
+        gcc_mod = config.get("modules", {}).get("gcc") or ""
+        gcc_lib = config.get("modules", {}).get("gcc_lib_path") or ""
+        fastp_mod = config.get("modules", {}).get("fastp") or ""
+        mod_cmd = ""
+        if fastp_mod:
+            mod_cmd += f"module load {fastp_mod} 2>/dev/null || true; "
+        if gcc_mod:
+            mod_cmd += f"module load {gcc_mod} 2>/dev/null || true; "
+        if gcc_lib:
+            mod_cmd += f"export LD_LIBRARY_PATH={gcc_lib}:$" + "{{LD_LIBRARY_PATH}}; "
+        extra = " --detect_adapter_for_pe --cut_front --cut_tail --correction " if config.get("fastp", {}).get("detect_adapter", True) else ""
+        shell(
+            mod_cmd + "fastp -i {r1} -I {r2} "
+            "-o {output.r1} -O {output.r2} "
+            "--length_required {params.len_req} --cut_window_size {params.win} --cut_mean_quality {params.qual} "
+            "--thread {threads} -j {output.json} -h {output.html} "
+            f"{extra}"
+        )
+
+rule fastqc_raw:
+    input:
+        r1=lambda w: Path(PROJECT_DIR) / sample_row(w.sample_id)["read1"].strip(),
+        r2=lambda w: Path(PROJECT_DIR) / sample_row(w.sample_id)["read2"].strip(),
+    output:
+        directory(RESULTS / "qc/fastqc_raw/{sample_id}")
+    params:
+        out=RESULTS / "qc/fastqc_raw/{sample_id}",
+        mod=config.get("modules", {}).get("fastqc") or "",
+    resources: threads=4, mem_mb=4096
+    run:
+        mod_cmd = f"module load {params.mod} 2>/dev/null || true; " if params.mod else ""
+        shell(f"mkdir -p {params.out} && {mod_cmd}fastqc -t {threads} -o {params.out} {input.r1} {input.r2}")
+
+rule fastqc_cleaned:
+    input:
+        r1=RESULTS / "qc/cleaned/{sample_id}_R1.fq.gz",
+        r2=RESULTS / "qc/cleaned/{sample_id}_R2.fq.gz",
+    output: directory(RESULTS / "qc/fastqc_cleaned/{sample_id}")
+    params:
+        out=RESULTS / "qc/fastqc_cleaned/{sample_id}",
+        mod=config.get("modules", {}).get("fastqc") or "",
+    resources: threads=4, mem_mb=4096
+    run:
+        mod_cmd = f"module load {params.mod} 2>/dev/null || true; " if params.mod else ""
+        shell(f"mkdir -p {params.out} && {mod_cmd}fastqc -t {threads} -o {params.out} {input.r1} {input.r2}")
+
+# --- Reference assembly (one per host_reference sample) ---
+rule ref_assembly:
+    input:
+        r1=RESULTS / "qc/cleaned/{ref_id}_R1.fq.gz",
+        r2=RESULTS / "qc/cleaned/{ref_id}_R2.fq.gz",
+    output:
+        fasta=RESULTS / "assemblies/{ref_id}.fasta",
+        stats=RESULTS / "assemblies/{ref_id}_seqkit_stats.txt",
+    params:
+        mode=config.get("unicycler", {}).get("mode", "normal"),
+    resources:
+        threads=config.get("resources", {}).get("ref_assembly", {}).get("threads", 16),
+        mem_mb=65536,
+        runtime=1440,  # 24h in minutes; executor sets --time (do not use slurm_extra for time)
+    conda: "../envs/assembly.yaml"
+    run:
+        out_dir = Path(output.fasta).parent
+        out_dir.mkdir(parents=True, exist_ok=True)
+        asm_dir = out_dir / f"{wildcards.ref_id}_asm"
+        asm_dir.mkdir(parents=True, exist_ok=True)
+        mod = config.get("modules", {}).get("unicycler") or ""
+        mod_cmd = f"module load {mod} 2>/dev/null || true; " if mod else ""
+        shell(mod_cmd + "unicycler -1 {input.r1} -2 {input.r2} -o {asm_dir} --mode {params.mode} -t {threads}")
+        shell("seqkit seq -m 500 {asm_dir}/assembly.fasta > {output.fasta}")
+        shell("seqkit stats {asm_dir}/assembly.fasta {output.fasta} > {output.stats}")
+
+# --- Reference QC: QUAST ---
+rule ref_quast:
+    input: RESULTS / "assemblies/{ref_id}.fasta"
+    output: RESULTS / "assemblies/{ref_id}_quast/report.txt"
+    params: out=RESULTS / "assemblies/{ref_id}_quast"
+    resources: threads=8, mem_mb=8192
+    conda: "../envs/quast.yaml"
+    shell: "mkdir -p {params.out} && quast.py {input} -o {params.out} -t {threads}"
+
+# --- Reference QC: CheckM (lineage_wf + qa combined). Optional: set run_checkm: false to skip. ---
+rule ref_checkm:
+    input: RESULTS / "assemblies/{ref_id}.fasta"
+    output:
+        qa_tsv=RESULTS / "assemblies/{ref_id}_checkm/{ref_id}_checkm_qa.tsv",
+    params:
+        tmp=RESULTS / "assemblies/{ref_id}_checkm_tmp",
+        out=RESULTS / "assemblies/{ref_id}_checkm",
+    resources: threads=16, mem_mb=65536
+    run:
+        if not config.get("run_checkm", True):
+            Path(output.qa_tsv).parent.mkdir(parents=True, exist_ok=True)
+            Path(output.qa_tsv).write_text("# CheckM skipped (run_checkm: false in config)\n")
+            return
+        tmp = Path(params.tmp)
+        out = Path(params.out)
+        tmp.mkdir(parents=True, exist_ok=True)
+        out.mkdir(parents=True, exist_ok=True)
+        shell("cp {input} {tmp}/")
+        shell("checkm lineage_wf -t {threads} -x fasta {tmp} {out}")
+        shell("checkm qa {out}/lineage.ms {out} -o 2 > {output.qa_tsv}")
+        shell("rm -rf {tmp}")
+    # When run_checkm is true, ensure CheckM is on PATH (e.g. mamba activate checkm). No conda here so pipeline runs when run_checkm is false without building the often-failing checkm env.
+
+# --- Reference annotation: Prokka ---
+rule ref_prokka:
+    input: RESULTS / "assemblies/{ref_id}.fasta"
+    output:
+        gbk=RESULTS / "references/{ref_id}/{ref_id}.gbk",
+        gff=RESULTS / "references/{ref_id}/{ref_id}.gff",
+        faa=RESULTS / "references/{ref_id}/{ref_id}.faa",
+    params: outdir=lambda w: RESULTS / "references" / w.ref_id
+    resources: threads=16, mem_mb=32768, runtime=1440  # 24h in minutes; use default so executor doesn’t give 2 min
+    conda: "../envs/prokka.yaml"
+    run:
+        outdir = Path(str(params.outdir))
+        outdir.mkdir(parents=True, exist_ok=True)
+        shell(
+            "prokka --outdir {params.outdir} --prefix {wildcards.ref_id} --kingdom Bacteria "
+            "--cpus {threads} --force {input}"
+        )
+
+# --- Reference QC compiled (ref_qccomp) ---
+rule ref_qccomp:
+    input:
+        quast_report=RESULTS / "assemblies/{ref_id}_quast/report.txt",
+        checkm_tsv=RESULTS / "assemblies/{ref_id}_checkm/{ref_id}_checkm_qa.tsv",
+        seqkit=RESULTS / "assemblies/{ref_id}_seqkit_stats.txt",
+    output: RESULTS / "assemblies/{ref_id}_qc_compiled.txt"
+    resources: threads=1, mem_mb=1024
+    run:
+        out = Path(output[0])
+        with open(out, "w") as f:
+            f.write("QC COMPILED SUMMARY\n")
+            f.write(f"Reference: {wildcards.ref_id}\n\n")
+            f.write("=== QUAST ===\n")
+            qr = Path(input.quast_report)
+            f.write(qr.read_text() if qr.exists() else "(missing)\n")
+            f.write("\n=== SEQKIT ===\n")
+            f.write(Path(input.seqkit).read_text())
+            f.write("\n=== CHECKM QA ===\n")
+            f.write(Path(input.checkm_tsv).read_text())
+
+
+# --- breseq per resistant mutant ---
+rule breseq:
+    input:
+        ref_gbk=lambda w: RESULTS / f"references/{ref_for_mutant(w.sample_id)}/{ref_for_mutant(w.sample_id)}.gbk",
+        r1=RESULTS / "qc/cleaned/{sample_id}_R1.fq.gz",
+        r2=RESULTS / "qc/cleaned/{sample_id}_R2.fq.gz",
+    output:
+        gd=RESULTS / "breseq/{sample_id}/output/output.gd",
+    params:
+        name=lambda w: w.sample_id,
+    resources:
+        threads=config.get("resources", {}).get("breseq", {}).get("threads", 16),
+        # HPC3 standard: stay at or under ~threads * 6144 MB per node
+        mem_mb=lambda wildcards, threads: min(
+            int(config.get("resources", {}).get("breseq", {}).get("mem_mb", 98304)),
+            threads * 6144,
+        ),
+        runtime=1440,
+    conda: "../envs/breseq.yaml"
+    run:
+        gd_path = Path(output.gd)
+        # If a prior run left output.done / HTML but no output.gd, breseq exits "complete" and skips .gd.
+        out_sub = gd_path.parent
+        if out_sub.is_dir() and not gd_path.exists():
+            shutil.rmtree(out_sub, ignore_errors=True)
+        out_dir = gd_path.parent.parent
+        out_dir.mkdir(parents=True, exist_ok=True)
+        extra = " -p " if config.get("breseq", {}).get("polymorphism") else ""
+        nj = breseq_parallel_jobs(wildcards, threads)
+        shell(
+            "breseq -r {input.ref_gbk} -o {out_dir} -j %d --name {params.name} "
+            % nj
+            + extra
+            + " {input.r1} {input.r2}"
+        )
+
+# --- gdtools ANNOTATE per mutant ---
+rule gdtools_annotate:
+    input:
+        ref_gbk=lambda w: RESULTS / f"references/{ref_for_mutant(w.sample_id)}/{ref_for_mutant(w.sample_id)}.gbk",
+        gd=RESULTS / "breseq/{sample_id}/output/output.gd",
+    output: RESULTS / "tables/mutations/{sample_id}.tsv"
+    resources: threads=4, mem_mb=8192
+    conda: "../envs/breseq.yaml"
+    run:
+        Path(output[0]).parent.mkdir(parents=True, exist_ok=True)
+        shell("gdtools ANNOTATE -o {output} -r {input.ref_gbk} {input.gd} -f TSV")
+
+# --- Combine mutation tables per reference_group ---
+rule combine_tables:
+    input: lambda w: [RESULTS / f"tables/mutations/{m}.tsv" for m in get_mutant_ids() if ref_for_mutant(m) == w.ref_id]
+    output: RESULTS / "tables/mutations_combined_{ref_id}.tsv"
+    resources: threads=1, mem_mb=2048
+    run:
+        import csv
+        inputs = [Path(p) for p in input]
+        Path(output[0]).parent.mkdir(parents=True, exist_ok=True)
+        if not inputs:
+            Path(output[0]).write_text("mutant_id\n")
+            return
+        with open(output[0], "w", newline="") as out:
+            writer = None
+            for p in inputs:
+                with open(p) as f:
+                    r = csv.reader(f, delimiter="\t")
+                    h = next(r, None)
+                    if writer is None and h:
+                        writer = csv.writer(out, delimiter="\t")
+                        writer.writerow(["mutant_id"] + (h[1:] if len(h) > 1 else []))
+                    for row in r:
+                        if writer and row:
+                            writer.writerow([p.stem] + (row[1:] if len(row) > 1 else []))
+
+# --- Normalize mutation table for plotting ---
+rule normalize_mutation_table:
+    input: expand(RESULTS / "tables/mutations/{sample_id}.tsv", sample_id=get_mutant_ids())
+    output: RESULTS / "tables/figure5a_plot_table.tsv"
+    params: mode=config.get("plot", {}).get("collapse_mode", "event")
+    resources: threads=1, mem_mb=2048
+    run:
+        tsvs = [str(p) for p in input]
+        Path(output[0]).parent.mkdir(parents=True, exist_ok=True)
+        shell("python3 " + str(SCRIPT_DIR) + "/normalize_mutation_table.py " + " ".join(tsvs) + " -o " + str(output[0]) + " --mode " + params.mode)
+
+# --- Figure 5a plot ---
+rule plot_figure5a:
+    input: RESULTS / "tables/figure5a_plot_table.tsv"
+    output:
+        png=RESULTS / "figures/figure5a_mutation_table.png",
+        pdf=RESULTS / "figures/figure5a_mutation_table.pdf",
+        csv=RESULTS / "tables/figure5a_plot_data.csv",
+    resources: threads=1, mem_mb=4096
+    run:
+        Path(output.png).parent.mkdir(parents=True, exist_ok=True)
+        Path(output.csv).parent.mkdir(parents=True, exist_ok=True)
+        rscript = get_rscript()
+        shell("{rscript} scripts/plot_figure5a.R --input {input} --output-png {output.png} --output-pdf {output.pdf} --output-csv {output.csv}")

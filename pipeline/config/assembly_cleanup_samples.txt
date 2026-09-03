@@ -1,0 +1,14 @@
+# Samples with elevated CheckM contamination / QUAST outliers — one ID per line.
+# Edit this list to add/remove targets. Lines starting with # are ignored.
+
+BOR-10
+BOR-08
+BOR-15
+BOR-05
+BOR-02
+BOR-04
+BOR-07
+BOR-13
+BOR-06
+BOR-16
+BOR-01

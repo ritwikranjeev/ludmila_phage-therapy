@@ -1,0 +1,8 @@
+gene	features_tested	strongest_feature	beta	p	fwer_p	significant_family_wise
+fmtA	52	fmtA:pos335:V	-0.3034	1.903e-01	0.9800	no
+ltaS	1	ltaS:identity_to_consensus	0.0794	1.148e-01	0.9200	no
+tagH	3	tagH:pos527:A	0.2518	4.696e-02	0.5700	no
+tagU	46	tagU:pos322:F	-0.4521	7.131e-02	0.7150	no
+tarL	2	tarL:pos378:V	0.3612	3.647e-02	0.4900	no
+tarM	500	tarM:pos159:N	-0.3147	1.110e-02	0.1000	no
+tarS	30	tarS:pos271:D	-0.1874	1.378e-01	0.9500	no

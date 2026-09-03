@@ -1,0 +1,13 @@
+test	detail	value	p
+jaccard	group_2749|group_2693	0.7885	
+jaccard	group_2749|group_2736	0.9400	
+jaccard	group_2749|group_2730	0.8627	
+jaccard	group_2693|group_2736	0.7736	
+jaccard	group_2693|group_2730	0.8039	
+jaccard	group_2736|group_2730	0.9200	
+visa_resistance	VISA vs non-VISA susceptibility	3/14 vs 50/69	0.0005314
+lineage_collapsed	<= 50 SNPs, 25 lineages	2 VISA lineages	1
+lineage_collapsed	<= 100 SNPs, 15 lineages	2 VISA lineages	0.6224
+lineage_collapsed	<= 500 SNPs, 14 lineages	2 VISA lineages	0.5804
+phenotype_encoding	discrete_scale == 3	53/83 susceptible	0.00331
+phenotype_encoding	discrete_scale > 0	72/83 susceptible	0.002758

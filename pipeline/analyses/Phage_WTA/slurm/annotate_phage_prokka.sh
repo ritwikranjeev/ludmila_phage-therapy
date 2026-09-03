@@ -1,0 +1,91 @@
+#!/bin/bash
+#SBATCH --job-name=PHAGE_ANN
+#SBATCH --account=katrine_lab
+#SBATCH --partition=standard
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=16G
+#SBATCH --time=04:00:00
+#SBATCH --output=logs/phage_annotate_%x_%A_%a.out
+#SBATCH --error=logs/phage_annotate_%x_%A_%a.err
+
+set -euo pipefail
+
+# DRY_RUN only echoes commands; skip conda until phage_wta_env exists.
+if [[ "${DRY_RUN:-0}" == "1" ]]; then
+  export PHAGE_WTA_SKIP_CONDA=1
+fi
+
+: "${SLURM_ARRAY_TASK_ID:?Submit with: sbatch --array=1-N slurm/annotate_phage_prokka.sh (N = number of data rows in config/phage_genomes.tsv)}"
+
+# Slurm copies the batch script to the spool directory; paths from $0 break. Submit from project root.
+if [[ -n "${SLURM_SUBMIT_DIR:-}" ]]; then
+  cd "${SLURM_SUBMIT_DIR}"
+else
+  cd "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+fi
+# shellcheck source=/dev/null
+source "${PWD}/config/env_setup.sh"
+
+cd "${PHAGE_WTA_PROJECT_ROOT}"
+mkdir -p logs
+
+TSV="${PHAGE_WTA_PROJECT_ROOT}/config/phage_genomes.tsv"
+# shellcheck source=/dev/null
+source "${PHAGE_WTA_PROJECT_ROOT}/slurm/_array_tsv_common.sh"
+array_tsv_validate_range "${TSV}" "${SLURM_ARRAY_TASK_ID}" "config/phage_genomes.tsv" || exit 1
+
+DATA_LINE=$((SLURM_ARRAY_TASK_ID + 1))
+IFS=$'\t' read -r ID FASTA < <(sed -n "${DATA_LINE}p" "${TSV}")
+
+# TSV paths from prepare_genome_lists.py are relative to project root unless outside the tree.
+if [[ -n "${FASTA:-}" && "${FASTA}" != /* ]]; then
+  FASTA="${PHAGE_WTA_PROJECT_ROOT}/${FASTA}"
+fi
+
+if [[ -z "${ID:-}" || -z "${FASTA:-}" ]]; then
+  echo "ERROR: No phage genome row for array task ${SLURM_ARRAY_TASK_ID} (line ${DATA_LINE} of ${TSV})." >&2
+  exit 1
+fi
+
+OUTDIR="${PHAGE_WTA_PROJECT_ROOT}/data/phage_prokka/${ID}"
+mkdir -p "${OUTDIR}"
+
+hostname
+date
+echo "Prokka phage: id=${ID} fasta=${FASTA} outdir=${OUTDIR}"
+
+# Prokka with --outdir and --prefix writes PREFIX.faa, PREFIX.gff, PREFIX.tsv, etc.
+# Expected proteins: "${OUTDIR}/${ID}.faa" (default naming).
+
+# DRY_RUN=1: echo the command only (for wiring tests). Export before sbatch so the
+# variable reaches the job, e.g.:  export DRY_RUN=1 && sbatch --array=1-1 slurm/annotate_phage_prokka.sh
+if [[ "${DRY_RUN:-0}" == "1" ]]; then
+  echo "[DRY_RUN] Skipping prokka; would run:"
+  echo prokka \
+    --kingdom Viruses \
+    --cpus "${SLURM_CPUS_PER_TASK:-8}" \
+    --outdir "${OUTDIR}" \
+    --prefix "${ID}" \
+    "${FASTA}"
+  echo "[DRY_RUN] Expected output proteins: ${OUTDIR}/${ID}.faa"
+  if [[ ! -f "${FASTA}" ]]; then
+    echo "[DRY_RUN] NOTE: FASTA not found at ${FASTA} (real run would fail until path is valid)." >&2
+  fi
+  exit 0
+fi
+
+if [[ ! -f "${FASTA}" ]]; then
+  echo "ERROR: FASTA not found: ${FASTA}" >&2
+  exit 1
+fi
+
+prokka \
+  --kingdom Viruses \
+  --cpus "${SLURM_CPUS_PER_TASK:-8}" \
+  --outdir "${OUTDIR}" \
+  --prefix "${ID}" \
+  "${FASTA}"
+
+echo "Done: ${OUTDIR}"

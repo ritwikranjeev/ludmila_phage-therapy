@@ -1,0 +1,6 @@
+# Flye only — avoid mixing with medaka in one env (can yield broken flye imports on some solves).
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - flye >=2.9

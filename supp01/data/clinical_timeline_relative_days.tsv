@@ -1,0 +1,27 @@
+track	type	day_start	day_end	label	group	y	color_group	precision
+Imaging	imaging	-777		NA	imaging	0.16	imaging	month
+Disease	culture	-747		NA	culture	0.18	culture	month
+Disease	culture	-716		NA	culture	0.18	culture	month
+Disease	symptom_band	-747	-716	Fevers and Sinus Pressure	symptom	0.4	symptom	month
+Disease	culture	-563		NA	culture	0.18	culture	month
+Therapy	drug	-563	-532	Vancomycin	vancomycin	0.24	vancomycin	month
+Therapy	drug	-532		Doxycycline	doxycycline	0	doxycycline	month
+Disease	culture	-503		NA	culture	0.18	culture	month
+Therapy	drug	-503		Mupirocin	mupirocin	0.12	mupirocin	month
+Therapy	surgery	-411		Endoscopic Debriment	surgery	0.16	surgery	month
+Disease	culture	-411		NA	culture	0.18	culture	month
+Therapy	drug	-411		Linezolid	linezolid	0.36	linezolid	month
+Disease	symptom_band	-381		Fevers and Sinus Pressure		0.4	symptom	month
+Disease	symptom_band	-138		Fevers and Sinus Pressure		0.4	symptom	month
+Disease	symptom_band	-107		Fevers and Sinus Pressure		0.4	symptom	month
+Disease	symptom_band	-77		Fevers and Sinus Pressure		0.4	symptom	month
+Therapy	phage	-411		Decision to pursue phage therapy	phage	0.5	phage	month
+Therapy	phage	7	49	Adjunctive Phage Therapy	phage	0.5	phage	day
+Therapy	drug	0	11	Vancomycin	vancomycin	0.24	vancomycin	day
+Therapy	drug	14	26	NA	vancomycin	0.24	vancomycin	day
+Therapy	drug	28	42	Linezolid	linezolid	0.36	linezolid	day
+Imaging	imaging	76		NA	imaging	0.16	imaging	month
+Therapy	surgery	107		Endoscopic Debriment	surgery	0.16	surgery	month
+Therapy	drug	107		Doxycycline	doxycycline	0	doxycycline	month
+Disease	culture	76		NA	culture	0.18	culture	month
+Disease	culture	-46		NA	culture	0.18	culture	month

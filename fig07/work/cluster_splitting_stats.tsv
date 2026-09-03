@@ -1,0 +1,12 @@
+gene	feature	cluster	strains_with	susceptible_with	beta	p	direction
+rplI (50S ribosomal protein L9)	arm 1	rplI	24	7	-0.461	1.699e-04	present in resistant
+rplI (50S ribosomal protein L9)	arm 2	group_273	59	45	0.4492	1.353e-04	present in susceptible
+rplI (50S ribosomal protein L9)	merged	merged	81	52	0.0515	8.805e-01	present in susceptible
+sraP (serine-rich adhesin)	arm 1	sraP~~~sraP_1~~~sraP_4	73	52	0.5892	1.573e-04	present in susceptible
+sraP (serine-rich adhesin)	arm 2	sraP_1~~~sraP_2~~~sraP_3~~~sraP	10	3	-0.4129	8.258e-03	present in resistant
+sraP (serine-rich adhesin)	merged	merged	80	53	0.4969	9.216e-02	present in susceptible
+agrB (accessory gene regulator B)	arm 1	agrB	36	25	0.0609	6.449e-01	present in susceptible
+agrB (accessory gene regulator B)	arm 2	agrB~~~agrB_1~~~agrB_2	47	28	-0.0609	6.449e-01	present in resistant
+metXA (homoserine O-acetyltransferase)	arm 1	metXA~~~metXA_1	23	7	-0.4577	2.278e-04	present in resistant
+metXA (homoserine O-acetyltransferase)	arm 2	metXA_2~~~metXA_1~~~metXA	60	45	0.4477	1.961e-04	present in susceptible
+metXA (homoserine O-acetyltransferase)	merged	merged	80	52	0.2139	6.052e-01	present in susceptible

@@ -1,0 +1,9 @@
+- "left reads":
+  - "/dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/corrected/Ludmila_clean_R1.fq.00.0_0.cor.fastq.gz"
+  "number": !!int "1"
+  "orientation": "fr"
+  "right reads":
+  - "/dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/corrected/Ludmila_clean_R2.fq.00.0_0.cor.fastq.gz"
+  "single reads":
+  - "/dfs6b/pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/Figure2_Genomic_Characterization/2a_Ludmila_Genome/results/assembly/corrected/Ludmila_clean_R_unpaired.00.0_0.cor.fastq.gz"
+  "type": "paired-end"

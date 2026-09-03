@@ -1,0 +1,9 @@
+day	WBC	Neutrophil Count	Monocyte Count	Albumin	Creatinine	BUN	CRP	ESR	Vancomycin Random	A1c	Hemoglobin ct	Platelet ct
+7	5.9	3.9	0.7	4.4	0.9	20	NA	NA	0	4.9	14	215
+14	5	3.3	0.25	4.3	1	16	NA	NA	12.9	NA	13.5	199
+21	6.6	4.6	0.7	4.4	1	25	NA	NA	13.8	NA	13.7	227
+26	4.9	NA	NA	4.3	0.92	24	<3	16	Trough: 17.5	NA	12.6	189
+28	4.4	2.9	0.6	4.3	0.9	24	NA	NA	NA	NA	12.6	194
+35	5.6	3.5	0.6	4.5	1	24	NA	NA	<2.5	NA	13.4	223
+42	5.1	3.2	0.5	4.4	1.1	27	NA	NA	NA	NA	12.9	214
+49	5.2	2.3	0.7	4.3	1	35	NA	NA	<2.5	NA	12.6	184

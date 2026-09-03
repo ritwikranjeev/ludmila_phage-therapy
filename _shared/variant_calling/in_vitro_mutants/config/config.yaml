@@ -1,0 +1,115 @@
+# Figure 5a mutation-calling pipeline config
+# All paths are relative to project_dir unless absolute.
+# After rsync to HPC3, set project_dir to your project path (e.g. --config project_dir=$PWD).
+
+# Run from pipeline root: analyses/Figure5_Phage_resistant_Mutant_Analysis
+project_dir: "."
+# Paths relative to project_dir. Raw FASTQs in project data folder:
+raw_reads_dir: "../../data/Figure5_Phage_resistant_Mutant_Analysis/sequencing/raw"
+data_dir: "data"
+results_dir: "results"
+samples_tsv: "metadata/samples.tsv"
+
+# Optional: exclude specific sample_id from breseq and downstream. Empty = run all mutants including S16.
+exclude_samples: ["S16.OCPT04SA01.4.6"]
+
+# SLURM / cluster (edit for your allocation)
+cluster:
+  account: "katrine_lab"
+  partition: "standard"
+  time: "04:00:00"
+  mem_mb: 65536
+  extra: ""
+
+# Per-rule resources (override defaults above)
+resources:
+  validate_samples:
+    threads: 1
+    mem_mb: 1024
+    time: "00:05:00"
+  fastp:
+    threads: 16
+    mem_mb: 8192
+    time: "02:00:00"
+    runtime_min: 120   # SLURM walltime in minutes (override if jobs timeout)
+  fastqc:
+    threads: 4
+    mem_mb: 4096
+    time: "00:30:00"
+  ref_assembly:
+    threads: 16
+    mem_mb: 65536
+    time: "08:00:00"
+  ref_quast:
+    threads: 8
+    mem_mb: 8192
+    time: "01:00:00"
+  ref_checkm:
+    threads: 16
+    mem_mb: 65536
+    time: "04:00:00"
+  ref_prokka:
+    threads: 16
+    mem_mb: 32768
+    time: "02:00:00"
+  ref_qccomp:
+    threads: 1
+    mem_mb: 1024
+    time: "00:05:00"
+  breseq:
+    threads: 16
+    # Capped in Snakefile to threads*6144 for HPC3 standard; avoid 120G requests that still OOM on S16
+    mem_mb: 98304
+    time: "04:00:00"
+  gdtools:
+    threads: 4
+    mem_mb: 8192
+    time: "00:30:00"
+  combine_tables:
+    threads: 1
+    mem_mb: 2048
+    time: "00:10:00"
+  normalize_mutation_table:
+    threads: 1
+    mem_mb: 2048
+    time: "00:10:00"
+  plot_figure5a:
+    threads: 1
+    mem_mb: 4096
+    time: "00:15:00"
+
+# HPC3 module names (leave empty or omit to not run module load; then conda or PATH is used)
+# If conda env creation fails (e.g. libdeflate), set these so SLURM jobs load modules instead.
+# gcc: load with fastp so jobs get libstdc++ with GLIBCXX_3.4.26 (fixes "version `GLIBCXX_3.4.26' not found").
+# gcc_lib_path: prepend to LD_LIBRARY_PATH before fastp so GCC 11 lib wins on compute nodes (set to your gcc/11.2.0 lib64 path; empty = do not set).
+modules:
+  gcc: "gcc/11.2.0"
+  gcc_lib_path: "/opt/apps/gcc/11.2.0/lib64"
+  fastp: "fastp/0.23.2"
+  fastqc: "fastqc/0.11.9"
+  unicycler: "unicycler/0.5.0"
+
+# Tool options
+fastp:
+  length_required: 60
+  cut_window_size: 4
+  cut_mean_quality: 20
+  detect_adapter: true
+
+unicycler:
+  mode: "normal"
+
+breseq:
+  extra: ""
+  # Set to true to run in polymorphism mode
+  polymorphism: false
+
+# Optional steps (set to true to enable)
+run_phiX_removal: false
+run_fastqc: true
+# Set to false if CheckM env fails to install (pysam/libdeflate conflicts on some systems). Pipeline will skip CheckM and ref_qccomp will note "CheckM skipped".
+run_checkm: false
+
+# Overwrite existing outputs (use with care)
+overwrite_breseq: false
+overwrite_assembly: false

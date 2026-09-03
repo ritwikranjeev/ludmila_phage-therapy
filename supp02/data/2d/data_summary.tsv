@@ -1,0 +1,26 @@
+Organism Scientific Name	Organism Common Name	Organism Qualifier	Taxonomy id	Assembly Name	Assembly Accession	Source	Annotation	Level	Contig N50	Size	Submission Date	Gene Count	BioProject	BioSample
+Staphylococcus phage P68			204090	ViralProj14269	GCF_000842185.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18227	18227	2003-04-05	22		
+Staphylococcus phage phi44AHJD			2679897	ViralProj14268	GCF_000843045.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	16784	16784	2003-04-05	21		
+Staphylococcus phage K			2928685	ViralProj14479	GCF_000846645.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	148317	148317	2014-06-17	237	PRJNA222858	
+Staphylococcus phage EW			2936814	ViralProj15272	GCF_000857665.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	45286	45286	2005-05-23	77		
+Staphylococcus phage 66			320832	ViralProj15263	GCF_000858585.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18199	18199	2005-05-23	27		
+Staphylococcus phage SAP-2			470865	ViralProj20925	GCF_000872005.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17938	17938	2007-09-28	20		
+Staphylococcus phage S24-1		strain: S24-1	1010614	ViralProj80917	GCF_000895755.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18168	18168	2012-01-10	21		
+Staphylococcus phage vB_SauM_Romulus			1235660	ViralProj195528	GCF_000907055.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	131332	131332	2013-04-01	165		
+Staphylococcus phage GRCS			1453367	ViralProj240033	GCF_000914715.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17869	17869	2014-03-04	21		
+Staphylococcus phage BP39			1543206	ViralProj344116	GCF_001745035.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17641	17641	2016-09-23	20		
+Staphylococcus phage SLPW			1821228	ViralProj344196	GCF_001746055.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17861	17861	2016-09-23	20		
+Staphylococcus phage SCH1		strain: SCH1	1913581	ASM261546v1	GCF_002615465.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18023	18023	2020-05-15	21		
+Staphylococcus phage Andhra			1958907	ASM261918v1	GCF_002619185.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18546	18546	2020-05-15	20		
+Staphylococcus phage St 134			1958922	ASM261932v1	GCF_002619325.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18275	18275	2020-05-15	21		
+Staphylococcus phage PSa3			1319980	ASM263358v1	GCF_002633585.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17602	17602	2020-05-15	20		
+Staphylococcus phage vB_SauP_phiAGO1.3			2074138	ASM295829v1	GCF_002958295.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17603	17603	2020-05-15	20		
+Staphylococcus phage Pabna			2483713	ASM386417v1	GCF_003864175.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17700	17700	2020-05-15	21		
+Staphylococcus phage CSA13			2108359	ASM428487v1	GCF_004284875.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17034	17034	2020-05-15	18		
+Staphylococcus phage Portland			2650876	ASM894732v1	GCF_008947325.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17711	17711	2021-06-02	19	PRJNA222858	SAMN11191518
+Staphylococcus phage SA46-CL1			2591106	ASM1320215v1	GCF_013202155.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17508	17508	2021-06-02	19		
+Staphylococcus phage vB_SauP_EBHT			2776836	ASM1489286v1	GCF_014892865.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17471	17471	2021-06-02	20		
+Staphylococcus phage LSA2366			2797417	ASM1667359v1	GCF_016673595.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	17056	17056	2021-06-02	21		
+Staphylococcus phage JPL-50			2851077	ASM1909586v1	GCF_019095865.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	16927	16927	2023-01-31	29		
+Staphylococcus phage SeAlphi			2835941	ASM2047486v1	GCF_020474865.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18292	18292	2023-01-31	20		
+Staphylococcus phage BESEP3			3071005	ASM2049773v1	GCF_020497735.1	RefSeq	Annotation submitted by NCBI RefSeq	Complete Genome	18271	18271	2023-01-31	20		

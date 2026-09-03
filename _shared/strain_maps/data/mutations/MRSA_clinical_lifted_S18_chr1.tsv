@@ -1,0 +1,17 @@
+aa_new_seq	aa_position	aa_ref_seq	clone	codon_new_seq	codon_number	codon_position	codon_position_is_indeterminate	codon_ref_seq	gene_name	gene_position	gene_product	gene_strand	genes_inactivated	genes_overlapping	genes_promoter	locus_tag	locus_tags_inactivated	locus_tags_overlapping	locus_tags_promoter	mutation_category	mutator_status	new_read_count	new_read_count_basis	new_seq	population	position	position_end	position_start	ref_read_count	ref_read_count_basis	ref_seq	seq_id	snp_type	time	title	transl_table	treatment	type
+									nikD		Nickel import system ATP-binding protein NikD					PHNHCFNH_00037				snp_synonymous				C		40006	40006	40006			T	1			MRSA_clinical_post_vs_pre			SNP
+									yclM		Aspartokinase 3					PHNHCFNH_00087				snp_synonymous				C		99859	99859	99859			G	1			MRSA_clinical_post_vs_pre			SNP
+									pheS		Phenylalanine--tRNA ligase alpha subunit					PHNHCFNH_00284				snp_synonymous				T		310569	310569	310569			C	1			MRSA_clinical_post_vs_pre			SNP
+									scpB		p.Arg135Gln					DEBJFDCL_01109				snp_synonymous				T		354767	354767	354767			C	1			MRSA_clinical_post_vs_pre			SNP
+											p.Gly184Gly					DEBJFDCL_01401				snp_synonymous				T		455318	455318	455318			C	1			MRSA_clinical_post_vs_pre			SNP
+									leuA1		2-isopropylmalate synthase 1					PHNHCFNH_00443				deletion				T		476245	476245	476245			TA	1			MRSA_clinical_post_vs_pre			DEL
+									dltA		D-alanine--D-alanyl carrier protein ligase					PHNHCFNH_00487				snp_synonymous				A		527465	527465	527465			G	1			MRSA_clinical_post_vs_pre			SNP
+									cdaR		CdaA regulatory protein CdaR					DEBJFDCL_01788				deletion				C		573220	573220	573220			CT	1			MRSA_clinical_post_vs_pre			DEL
+									orr		p.Gly302Gly					DEBJFDCL_01813				snp_synonymous				C		579063	579063	579063			T	1			MRSA_clinical_post_vs_pre			SNP
+									rpsC		p.Asp27Asp					DEBJFDCL_01878				snp_synonymous				A		597149	597149	597149			G	1			MRSA_clinical_post_vs_pre			SNP
+											p.Asp8Val					DEBJFDCL_01889				snp_synonymous				T		599824	599824	599824			A	1			MRSA_clinical_post_vs_pre			SNP
+									mdrP		p.Lys70Arg					DEBJFDCL_02530				snp_synonymous				G		824336	824336	824336			A	1			MRSA_clinical_post_vs_pre			SNP
+											p.Ser40Pro					DEBJFDCL_02618				snp_synonymous				C		861768	861768	861768			T	1			MRSA_clinical_post_vs_pre			SNP
+									azo1		FMN-dependent NADPH-azoreductase					PHNHCFNH_00872				snp_nonsynonymous				C		889452	889452	889452			T	1			MRSA_clinical_post_vs_pre			SNP
+											p.Glu123Lys					DEBJFDCL_02793				snp_synonymous				A		918041	918041	918041			G	1			MRSA_clinical_post_vs_pre			SNP
+									gltX		Glutamate--tRNA ligase					PHNHCFNH_00904				deletion				G		924074	924074	924074			GT	1			MRSA_clinical_post_vs_pre			DEL

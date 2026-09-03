@@ -1,0 +1,29 @@
+gene	panel_group	family	n_present	susceptible_with_gene	susceptible_without_gene	beta	p_lmm	p_fisher	note	q_bh
+tarA	WTA synthesis	tarA	81	53	0	0.651	0.04668	0.1278		0.4357
+tarB	WTA synthesis	tarB	78	52	1	0.1744	0.4938	0.05493		0.801
+tarD	WTA synthesis	tarD	82	53	0	0.5731	0.2146	0.3614		0.5671
+tarL	WTA synthesis	tarL_3~~~tarL	82	53	0	0.5731	0.2146	0.3614		0.5671
+tagH	WTA synthesis	group_1427	81	52	1	0.2429	0.4757	1		0.801
+tagG	WTA synthesis	tagG	81	53	0	0.651	0.04668	0.1278		0.4357
+tagX	WTA synthesis	tagX_2~~~tagX~~~tagX_1	81	53	0	0.08372	0.8491	0.1278		0.9271
+tarM	WTA glycosylation	tarM~~~tarM_1	33	17	36	-0.2559	0.03788	0.0662		0.4357
+tarS	WTA glycosylation	tarS_2~~~tarS_1~~~tarS	81	52	1	-0.05942	0.8647	1		0.9271
+tarP	WTA glycosylation	tarP_1	14	11	42	0.2369	0.09446	0.2415		0.5671
+ltaS	LTA	ltaS_1~~~ltaS_2	2	0	53	-0.3488	0.365	0.1278	essential in S. aureus; 2/83 in both call sets, cause unresolved	0.7758
+ltaA	LTA	ltaA	81	53	0	0.08372	0.8491	0.1278		0.9271
+pgcA	LTA	pgcA~~~pgcA_1	80	53	0	0.2948	0.4156	0.04419		0.7758
+ugtP	LTA	ugtP_2~~~ugtP_3~~~ugtP	81	53	0	0.08372	0.8491	0.1278		0.9271
+mprF	dlt operon	mprF	81	52	1	-0.1458	0.6909	1		0.9271
+dltA	dlt operon	dltA	80	53	0	0.4698	0.1224	0.04419		0.5671
+dltB	dlt operon	dltB	81	53	0	0.4835	0.1727	0.1278		0.5671
+dltC	dlt operon	dltC	82	53	0	0.5731	0.2146	0.3614		0.5671
+dltD	dlt operon	dltD	80	52	1	0.1331	0.6466	0.2951		0.9271
+sdrD	Surface adhesins	sdrD_2~~~sdrD~~~sdrC~~~sdrC_1~~~sdrC_2	64	40	13	-0.1759	0.1681	0.7875		0.5671
+clfA	Surface adhesins	clfA~~~clfA_1~~~clfA_2	79	50	3	-0.2531	0.3908	1		0.7758
+clfB	Surface adhesins	group_2292	75	49	4	0.01752	0.9271	0.4514		0.9271
+fnbA	Surface adhesins	fnbB_6	80	52	1	0.1981	0.5149	0.2951		0.801
+spa	Surface adhesins	spa~~~spa_2~~~spa_1	78	51	2	0.02441	0.9162	0.3465		0.9271
+sasA	Surface adhesins	graS_4~~~sasA_2	79	52	1	0.3766	0.2228	0.132		0.5671
+sasG	Surface adhesins	sasG	26	19	34	0.1107	0.355	0.3257		0.7758
+sraP	Surface adhesins	sraP~~~sraP_1~~~sraP_4	68	46	7	0.03395	0.8216	0.1463		0.9271
+capD	Capsule	capD	81	53	0	0.08372	0.8491	0.1278		0.9271

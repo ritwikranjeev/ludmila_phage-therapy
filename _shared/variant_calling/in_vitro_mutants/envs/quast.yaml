@@ -1,0 +1,11 @@
+# QUAST for assembly QC (no HPC3 module)
+# Use flexible channel priority if creation fails (e.g. mamba env create -f envs/quast.yaml --channel-priority flexible)
+name: quast
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+channel_priority: flexible
+dependencies:
+  - python=3.9
+  - quast=5.2.0

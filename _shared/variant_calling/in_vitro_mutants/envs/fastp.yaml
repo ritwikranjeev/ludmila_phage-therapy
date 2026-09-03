@@ -1,0 +1,11 @@
+# fastp for read QC (so SLURM jobs have it without loading modules on compute nodes)
+# If creation fails (libdeflate conflict), try: mamba env create -f envs/fastp.yaml --channel-priority flexible
+name: fastp
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+channel_priority: flexible
+dependencies:
+  - python=3.10
+  - fastp

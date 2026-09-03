@@ -1,0 +1,25 @@
+# transient run artefacts
+logs/
+*.log
+Rplots.pdf
+*.partial
+
+# environments
+.venv/
+__pycache__/
+*.pyc
+.Rproj.user/
+.Rhistory
+
+.DS_Store
+
+# NOTE: fig07/work/*.npy are deliberately tracked. kinship.npy,
+# snp_distance.npy and permutation_minima.npy are small and are what let the
+# Figure 7 analysis be re-run without the 6.5 GB of raw genomes.
+
+# Superseded duplicates of scripts kept in their figure directories.
+# legacy/ additionally contains an obsolete path naming a patient isolate.
+pipeline/analyses/Figure2_Genomic_Characterization/
+pipeline/analyses/Figure5_Phage_resistant_Mutant_Analysis/
+pipeline/analyses/MRSA_ONT_comparative/
+**/legacy/

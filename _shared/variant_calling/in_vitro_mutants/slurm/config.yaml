@@ -1,0 +1,31 @@
+# Snakemake 8+ SLURM executor profile
+# Use: snakemake -s workflow/Snakefile --profile profile/slurm --use-conda --conda-prefix envs/conda --config project_dir=$PWD
+# Max 4 concurrent SLURM jobs; override with --jobs N if needed.
+# Requires: pip install snakemake-executor-plugin-slurm (or mamba install in snakemake env)
+
+executor: slurm
+
+# Edit these to match your allocation (same as config/config.yaml cluster section)
+# Use generous defaults so jobs don't timeout (executor was ignoring per-rule overrides)
+default-resources:
+  slurm_account: "katrine_lab"
+  slurm_partition: "standard"
+  runtime: 1440   # minutes (24h default)
+  cpus: 16
+  mem_mb: 8192
+
+# Per-rule: time via slurm_extra (in Snakefile); CPUs via set-threads (executor forbids --cpus-per-task in slurm_extra)
+set-threads:
+  fastp: 16
+  ref_assembly: 16
+  ref_prokka: 16
+  breseq: 16
+# ref_prokka: no runtime override — use default 1440 min (24h) so it doesn’t get 2 min and TIMEOUT
+
+# Max concurrent SLURM jobs (parallel tasks while respecting cluster)
+jobs: 4
+use-conda: true
+conda-prefix: envs/conda
+
+# Optional: keep SLURM logs
+# slurm-logdir: logs/slurm

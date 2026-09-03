@@ -1,0 +1,5 @@
+stack	item	day_start	day_end	route	dose
+Antibiotic	Vancomycin IV	0	11	IV	1 g q12h
+Antibiotic	Vancomycin IV	14	26	IV	1 g q12h
+Antibiotic	Linezolid PO	28	42	PO	600 mg q12h
+Phage	Ludmila	7	49	IN	10^8 PFU q24h

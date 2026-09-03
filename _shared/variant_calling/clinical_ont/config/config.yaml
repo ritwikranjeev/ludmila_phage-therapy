@@ -1,0 +1,70 @@
+# Sample IDs must match keys used in rules (e.g. pre, post).
+samples:
+  pre:
+    fastq: data/raw/pre.fastq
+    timepoint: pre
+  post:
+    fastq: data/raw/post.fastq
+    timepoint: post
+
+# Reference for read mapping, MUMmer ref, and Prokka/SnpEff context
+reference_sample: pre
+
+# Query sample for assembly-vs-assembly comparison (defaults to non-reference if omitted)
+# query_sample: post
+
+genome_size: "3m"
+
+# Flye: nano-raw (R9.4.1) or nano-hq (Q20+)
+flye_read_type: nano-raw
+
+medaka_model: r941_min_sup_g507
+
+# Set true to run filtlong before assembly/QC
+run_filtlong: false
+
+# BUSCO lineage dataset (optional rule in Snakefile)
+busco_lineage: bacteria_odb10
+
+# SnpEff database name for annotate_snpeff. Built from Prokka GFF + reference FASTA
+# (rule build_snpeff_database); must match VCF CHROM names (Flye contigs).
+snpeff_genome: mrsa_ref_pre
+
+# Clair3 settings (HPC3)
+# Set this to your actual model path, e.g. /path/to/clair3_models/r1041_e82_400bps_sup_v500
+clair3_model_path: /pub/ritwik1/manuscripts/OCPT-Ludmila_Characterization/analyses/MRSA_ONT_comparative/resources/clair3_models_pytorch/ont_guppy5
+clair3_bin: run_clair3.sh
+clair3_platform: ont
+clair3_pileup_only: true
+clair3_snp_min_af: 0.10
+clair3_indel_min_af: 0.15
+clair3_var_pct_full: 0.3
+clair3_ref_pct_full: 0.3
+# Optional extra args appended verbatim (leave empty unless needed)
+clair3_extra_args: ""
+
+# High-confidence variant integration (post sample against pre reference by default)
+highconf_sample: post
+# Threshold defaults are set to keep validated controls:
+# agrA p.Arg207His (1646692), fumC-upstream indel (1486788), yclM p.Ser4Cys (848821).
+highconf_medaka_min_qual: 3
+highconf_medaka_min_dp: 10
+highconf_clair3_min_qual: 8
+highconf_clair3_min_dp: 10
+highconf_medaka_solo_min_qual: 30
+highconf_medaka_solo_min_dp: 15
+highconf_medaka_solo_min_af: 0.90
+highconf_positive_controls: "contig_2:848821:G:C,contig_2:1486788:TA:T,contig_2:1646692:G:A"
+highconf_allow_medaka_only_in_hard_regions: true
+highconf_hard_regions: resources/hard_regions.bed
+
+# Focus resources for WTA/envelope scan and tiering
+wta_envelope_catalog: resources/wta_envelope_gene_catalog.yaml
+wta_focus_locus_tags: resources/focus_locus_tags.txt
+
+# Dotplot: reference contig id for figure_genome_alignment_main (pre assembly)
+alignment_plot_ref_contig: contig_2
+
+cluster:
+  account: katrine_lab
+  partition: standard

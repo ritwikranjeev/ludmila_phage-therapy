@@ -1,0 +1,11 @@
+# CheckM for assembly QC (completeness/contamination)
+# If this env fails to solve (pysam/libdeflate conflicts), set run_checkm: false in config and skip CheckM.
+name: checkm
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+channel_priority: flexible
+dependencies:
+  - python=3.9
+  - checkm-genome

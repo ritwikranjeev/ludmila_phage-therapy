@@ -1,0 +1,9 @@
+# Optional: PhiX removal (bbmap/bbduk). Only needed if run_phiX_removal: true.
+name: bbmap
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - bbmap
+  - python>=3.8
