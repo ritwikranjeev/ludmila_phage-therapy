@@ -221,19 +221,25 @@ blood_draw_markers <- tibble(
 # -----------------------------------------------------------------------------
 font_serif <- "Times New Roman"
 
-theme_clinical <- theme_bw(base_size = 11, base_family = font_serif) +
+# Panels are assembled several to a page in Canva and shrunk again, so default
+# type reads far too small in the finished layout. Every size below is a
+# multiple of FIG_TEXT_SCALE; figure dimensions are unaffected.
+FIG_TEXT_SCALE <- as.numeric(Sys.getenv("FIG_TEXT_SCALE", unset = "2"))
+.s <- FIG_TEXT_SCALE
+
+# theme_classic rather than theme_bw: axes only, no gridlines, no panel box.
+theme_clinical <- theme_classic(base_size = 11 * .s, base_family = font_serif) +
   theme(
     text = element_text(family = font_serif),
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.grid.major.y = element_line(color = "grey88", linewidth = 0.3),
-    axis.title = element_text(size = 11, color = "black", family = font_serif),
-    axis.text = element_text(size = 10, color = "black", family = font_serif),
+    axis.line = element_line(colour = "black", linewidth = 0.6),
+    axis.ticks = element_line(colour = "black"),
+    axis.title = element_text(size = 11 * .s, color = "black", family = font_serif),
+    axis.text = element_text(size = 10 * .s, color = "black", family = font_serif),
     strip.background = element_blank(),
     strip.text = element_text(face = "bold", family = font_serif),
-    legend.title = element_text(size = 10, family = font_serif),
-    legend.text = element_text(size = 9, family = font_serif),
-    plot.title = element_text(face = "bold", size = 12, family = font_serif),
+    legend.title = element_text(size = 10 * .s, family = font_serif),
+    legend.text = element_text(size = 9 * .s, family = font_serif),
+    plot.title = element_text(face = "bold", size = 12 * .s, family = font_serif),
     plot.margin = margin(8, 12, 8, 8)
   )
 
@@ -307,7 +313,6 @@ make_p_treat <- function(legend_position = "none") {
     theme(
       axis.text.x = element_blank(),
       axis.ticks.x = element_blank(),
-      panel.grid.major.x = element_line(color = "grey88", linewidth = 0.3),
       legend.position = legend_position,
       legend.box = "vertical",
       legend.spacing.y = unit(4, "pt")
@@ -357,11 +362,10 @@ p_labs <- ggplot(labs_long_plot, aes(x = day, y = value, group = lab)) +
     legend.position = "none",
     strip.placement = "outside",
     strip.clip = "off",
-    panel.grid.major.x = element_line(color = "grey88", linewidth = 0.3),
     # Sideways strip text; two lines + lineheight limits within-line crowding
     strip.text.y.left = element_text(
       face = "bold",
-      size = 10.75,
+      size = 10.75 * .s,
       angle = 90,
       hjust = 0.5,
       vjust = 0.5,
@@ -390,7 +394,7 @@ final_plot <- final_plot +
     theme = theme(
       plot.title = element_text(
         face = "bold",
-        size = 13,
+        size = 13 * .s,
         hjust = 0,
         family = font_serif
       )
@@ -430,8 +434,8 @@ legend_grob <- get_legend(
   make_p_treat(legend_position = "right") +
     theme(
       legend.position = "right",
-      legend.title = element_text(face = "bold", size = 11, family = font_serif),
-      legend.text = element_text(size = 10, family = font_serif),
+      legend.title = element_text(face = "bold", size = 11 * .s, family = font_serif),
+      legend.text = element_text(size = 10 * .s, family = font_serif),
       legend.background = element_rect(fill = "white", color = NA),
       legend.key = element_rect(fill = "white", color = NA),
       legend.box.margin = margin(4, 4, 4, 4)

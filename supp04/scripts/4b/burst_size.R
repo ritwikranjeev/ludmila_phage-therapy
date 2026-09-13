@@ -62,10 +62,35 @@ if (!DENOMINATOR %in% c("measured", "assumed")) {
   stop("S4_DENOMINATOR must be 'measured' (pre-lysis plateau) or 'assumed' (S4_IC0)")
 }
 PRE_TIMES  <- env_num("S4_PRE_TIMES", c(10, 20, 30))
-PLAT_TIMES <- env_num("S4_PLATEAU_TIMES", c(60, 70))
 
-fig_width  <- 5.5
-fig_height <- 5
+# PLATEAU AT 40 MIN, AND WHY.
+#
+# A one-step growth curve measures ONE round of infection. Titre rises roughly
+# tenfold between 30 and 40 min in all three curves here, which is the first
+# burst; it then keeps climbing to the last timepoint sampled. That continued
+# rise is not part of the first burst — progeny released at 40 min re-infect,
+# and later timepoints mix the first burst with subsequent cycles. Taking a
+# later window therefore inflates burst size with secondary infection.
+#
+# 40 min is the first post-burst timepoint and is used for all three curves
+# (pre-treatment, post-treatment and USA300). Applying it to some curves and
+# not others would not be defensible: every curve is still rising at every
+# window tried, so there is no curve for which a later window is more plateau-
+# like than another.
+#
+# The single-timepoint window is a real limitation, not a hidden one: one
+# timepoint cannot demonstrate a plateau, lysis is asynchronous so some cells
+# have not burst by 40 min, and the reported values are consequently lower
+# bounds. The full window sweep is written to burst_size_window_sweep.tsv so
+# the sensitivity of the estimate is on record rather than buried.
+PLAT_TIMES <- env_num("S4_PLATEAU_TIMES", c(40))
+
+# Enlarged from 5.5 x 5 when FIG_TEXT_SCALE doubled the type: point sizes are
+# absolute, so on the old canvas the rotated y-axis title ran out of room and
+# was clipped. Both dimensions are scaled by the same factor, so the panel
+# proportions (aspect.ratio = fig_height / fig_width) are unchanged.
+fig_width  <- 8.25
+fig_height <- 7.5
 
 d  <- read_timecourse(file.path(data_dir, INFILE), GROUPS, LABELS)
 tm <- d$time
@@ -202,7 +227,8 @@ p <- two_group_bar(
     res$p, res$ratio,
     if (DENOMINATOR == "measured") "measured pre-lysis plateau"
     else sprintf("assumed IC0 = %s", format(IC0, scientific = TRUE)),
-    if (rising) " Curve still rising: lower bound." else "")
+    if (rising) " Curve still rising: lower bound." else ""),
+  p_value = res$p
 )
 
 save_panel(p, file.path(results_dir, "burst_size"), fig_width, fig_height)

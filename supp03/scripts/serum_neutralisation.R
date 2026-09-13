@@ -57,6 +57,11 @@ env_or <- function(v, default) {
 # height are NOT configurable: they match the published originals.
 FIG_DPI <- as.numeric(env_or("FIG_DPI", 600))
 
+# Panels are assembled several to a page in Canva and shrunk again, so default
+# type reads far too small in the finished layout. Every size below is a
+# multiple of this; figure dimensions are unaffected.
+FIG_TEXT_SCALE <- as.numeric(env_or("FIG_TEXT_SCALE", 2))
+
 # Best-effort vector companion to the PNG.
 #
 # cairo_pdf() can fail at runtime with a WARNING rather than an error: it writes
@@ -212,14 +217,19 @@ p <- ggplot(df, aes(x = Week, y = EOP_mean, fill = Week)) +
   scale_x_discrete(labels = function(x) sub("^W", "", x), expand = expansion(add = 0.5)) +
   scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.08))) +
   labs(x = "Week", y = paste0("EOP relative to week ", sub("^W", "", REF_WEEK))) +
-  theme_bw(base_size = 13, base_family = FONT_FAMILY) +
+  # theme_classic rather than theme_bw: axes only, no gridlines, no panel box.
+  # Sizes scale with FIG_TEXT_SCALE (default 2) because panels are assembled
+  # several to a page in Canva and shrunk again; dimensions are unaffected.
+  theme_classic(base_size = 13 * FIG_TEXT_SCALE, base_family = FONT_FAMILY) +
   theme(
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor   = element_blank(),
+    axis.line          = element_line(colour = "black", linewidth = 0.6),
+    axis.ticks         = element_line(colour = "black"),
     plot.margin        = margin(t = 12, r = 14, b = 10, l = 36, unit = "pt"),
-    axis.title.x       = element_text(face = "bold", size = 14, family = FONT_FAMILY,
+    axis.title.x       = element_text(face = "bold", size = 14 * FIG_TEXT_SCALE,
+                                      family = FONT_FAMILY,
                                       margin = margin(t = 12, unit = "pt")),
-    axis.title.y       = element_text(face = "bold", size = 14, family = FONT_FAMILY,
+    axis.title.y       = element_text(face = "bold", size = 14 * FIG_TEXT_SCALE,
+                                      family = FONT_FAMILY,
                                       margin = margin(r = 12, unit = "pt")),
     axis.text          = element_text(face = "bold", family = FONT_FAMILY),
     axis.text.x        = element_text(hjust = 0.5, family = FONT_FAMILY,

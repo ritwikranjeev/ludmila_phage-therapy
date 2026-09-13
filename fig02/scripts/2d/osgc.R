@@ -31,16 +31,24 @@ FIG_DPI <- as.numeric(env_or("FIG_DPI", 600))
 fig_width   <- 8.5
 fig_height  <- 6
 plot_margin <- margin(t = 12, r = 14, b = 10, l = 36, unit = "pt")
+# Panels are assembled several to a page in Canva and shrunk again, so default
+# type reads far too small in the finished layout. Every size is a multiple of
+# FIG_TEXT_SCALE; figure dimensions are unaffected.
+FIG_TEXT_SCALE <- as.numeric(env_or("FIG_TEXT_SCALE", 2))
+
+# theme_classic rather than theme_bw: axes only, no gridlines, no panel box.
 theme_ludmila <- function() {
-  theme_bw(base_size = 13, base_family = "Times New Roman") +
+  s <- FIG_TEXT_SCALE
+  theme_classic(base_size = 13 * s, base_family = "Times New Roman") +
   theme(
+    axis.line        = element_line(colour = "black", linewidth = 0.6),
+    axis.ticks       = element_line(colour = "black"),
     axis.title       = element_text(face = "bold"),
-    axis.title.x     = element_text(face = "bold", size = 14, margin = margin(t = 12, unit = "pt")),
-    axis.title.y     = element_text(face = "bold", size = 14, margin = margin(r = 12, unit = "pt")),
+    axis.title.x     = element_text(face = "bold", size = 14 * s, margin = margin(t = 12, unit = "pt")),
+    axis.title.y     = element_text(face = "bold", size = 14 * s, margin = margin(r = 12, unit = "pt")),
     axis.text        = element_text(face = "bold"),
     axis.text.x      = element_text(face = "bold", margin = margin(t = 6, unit = "pt")),
     axis.text.y      = element_text(face = "bold", margin = margin(r = 6, unit = "pt")),
-    panel.grid.minor = element_blank(),
     aspect.ratio     = fig_height / fig_width  # same panel proportions in all figures
   )
 }
@@ -81,7 +89,8 @@ p <- ggplot(osgc, aes(x = .data[[time_col]], y = PFU)) +
   theme_ludmila() +
   theme(
     plot.margin = plot_margin,
-    plot.tag = element_text(size = 18, face = "bold", margin = margin(r = 12, unit = "pt")),
+    plot.tag = element_text(size = 18 * FIG_TEXT_SCALE, face = "bold",
+                            margin = margin(r = 12, unit = "pt")),
     plot.tag.position = "topleft"
   ) +
   coord_cartesian(clip = "off")

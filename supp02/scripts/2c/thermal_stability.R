@@ -52,12 +52,11 @@ p <- ggplot(sum_df, aes(x = grp, y = mean)) +
          sprintf("One-way ANOVA across temperature; error bars are SD of %d technical replicates",
                  length(d$titer_cols)) else NULL) +
   theme_ludmila(fig_width, fig_height) +
-  theme(plot.subtitle = element_text(size = 9, hjust = 0,
+  theme(plot.subtitle = element_text(size = 9 * FIG_TEXT_SCALE, hjust = 0,
                                      margin = margin(b = 8, unit = "pt"))) +
   theme(
     legend.position = "none",
-    plot.margin     = margin(t = 12, r = 14, b = 10, l = 36, unit = "pt"),
-    axis.line.x     = element_blank()
+    plot.margin     = margin(t = 12, r = 14, b = 10, l = 36, unit = "pt")
   ) +
   coord_cartesian(clip = "off")
 

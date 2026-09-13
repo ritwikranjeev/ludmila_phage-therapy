@@ -38,20 +38,31 @@ FIG_SUBTITLE <- as.integer(env_or("FIG_SUBTITLE", 1))
 
 # ---- theme ----------------------------------------------------------------
 
+# Panels are rendered at their published dimensions and then assembled several
+# to a page in Canva, so type set at the ggplot default is shrunk again in the
+# finished layout and reads far too small. Every size below is a multiple of
+# FIG_TEXT_SCALE, so the whole figure set re-tunes from one number instead of
+# thirty scattered constants. Figure dimensions are NOT affected.
+FIG_TEXT_SCALE <- as.numeric(env_or("FIG_TEXT_SCALE", 2))
+
+# theme_classic rather than theme_bw: axes only, no gridlines and no box around
+# the panel.
 theme_ludmila <- function(fig_width, fig_height) {
-  theme_bw(base_size = 13, base_family = "Times New Roman") +
+  s <- FIG_TEXT_SCALE
+  theme_classic(base_size = 13 * s, base_family = "Times New Roman") +
     theme(
+      axis.line        = element_line(colour = "black", linewidth = 0.6),
+      axis.ticks       = element_line(colour = "black"),
       axis.title       = element_text(face = "bold", colour = "black"),
-      axis.title.x     = element_text(face = "bold", size = 14, colour = "black",
+      axis.title.x     = element_text(face = "bold", size = 14 * s, colour = "black",
                                       margin = margin(t = 12, unit = "pt")),
-      axis.title.y     = element_text(face = "bold", size = 14, colour = "black",
+      axis.title.y     = element_text(face = "bold", size = 14 * s, colour = "black",
                                       margin = margin(r = 12, unit = "pt")),
       axis.text        = element_text(face = "bold", colour = "black"),
       axis.text.x      = element_text(face = "bold", colour = "black",
                                       margin = margin(t = 6, unit = "pt")),
       axis.text.y      = element_text(face = "bold", colour = "black",
                                       margin = margin(r = 6, unit = "pt")),
-      panel.grid.minor = element_blank(),
       strip.background = element_rect(fill = "white", colour = "black"),
       strip.text       = element_text(face = "bold"),
       aspect.ratio     = fig_height / fig_width
@@ -354,7 +365,8 @@ kirby_barplot <- function(long, sum_df, ann, fill_values,
       geom_segment(data = ann, aes(x = x_max, xend = x_max, y = y, yend = y_tick),
                    inherit.aes = FALSE, linewidth = 0.35, colour = "gray20") +
       geom_text(data = ann, aes(x = x_mid, y = y, label = label),
-                inherit.aes = FALSE, size = 4, fontface = "bold", vjust = -0.3)
+                inherit.aes = FALSE, size = 4 * FIG_TEXT_SCALE,
+                fontface = "bold", vjust = -0.3)
   }
 
   if (facet_by_strain) {
@@ -371,7 +383,8 @@ kirby_barplot <- function(long, sum_df, ann, fill_values,
     theme(
       aspect.ratio    = NULL,
       axis.text.x     = element_text(angle = 45, hjust = 1),
-      plot.subtitle   = element_text(size = 9, hjust = 0, margin = margin(b = 8, unit = "pt")),
+      plot.subtitle   = element_text(size = 9 * FIG_TEXT_SCALE, hjust = 0,
+                                     margin = margin(b = 8, unit = "pt")),
       legend.position = "none",
       panel.spacing   = unit(24, "pt")
     ) +
@@ -391,7 +404,7 @@ save_group_legend <- function(fill_values, outfile, title = NULL) {
   p_leg <- ggplot(d, aes(x = Group, y = y, fill = Group)) +
     geom_col(width = 0.6, colour = "gray20", linewidth = 0.6) +
     scale_fill_manual(values = fill_values, name = title) +
-    theme_bw(base_size = 13, base_family = "Times New Roman") +
+    theme_classic(base_size = 13 * FIG_TEXT_SCALE, base_family = "Times New Roman") +
     theme(
       legend.position = "bottom",
       legend.title    = element_text(face = "bold"),

@@ -6,7 +6,14 @@
 # Optional overrides (display or policy, never data):
 #   KB_FILE          input file name inside FIG_DATA
 #   KB_DISC_MM       disc diameter; readings may not fall below it (default 6)
-#   KB_STARS         p (default) | p_adj_within | p_adj_all
+#   KB_STARS         p_adj_all (default) | p_adj_within | p
+#                    Asterisks are drawn from Benjamini-Hochberg adjusted values
+#                    by default. Drawing them from raw p makes the figure
+#                    disagree with the Results text, which reports corrected
+#                    significance: four comparisons star on raw p and only the
+#                    clinical meropenem comparison survives correction.
+#                    KB_STARS=p restores uncorrected stars for diagnostics only;
+#                    if you use it, say so in the caption.
 #   KB_ABX_ORDER     comma-separated antibiotic order
 #   KB_STRAIN_ORDER  comma-separated facet order
 #   KB_GROUP_ORDER   comma-separated group order; first level is the open bar
@@ -25,7 +32,7 @@ dir.create(results_dir, recursive = TRUE, showWarnings = FALSE)
 
 INFILE       <- env_or("KB_FILE", "kirby_bauer_in_vitro_mutants.tsv")
 DISC_MM      <- as.numeric(env_or("KB_DISC_MM", "6"))
-STAR_P       <- env_or("KB_STARS", "p")
+STAR_P       <- env_or("KB_STARS", "p_adj_all")
 TEST         <- env_or("KB_TEST", "welch")
 ABX_ORDER    <- env_csv("KB_ABX_ORDER",    c("VA", "LEV", "MEM", "SXT", "MH", "LZD"))
 STRAIN_ORDER <- env_csv("KB_STRAIN_ORDER", c("USA300", "SA412", "OCPT02SA01", "OCPT04SA01", "PedCF"))

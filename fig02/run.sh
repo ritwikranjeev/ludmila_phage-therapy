@@ -12,11 +12,17 @@ mkdir -p logs
 
 # panel : script
 declare -a PANELS=(
-  "2c:circos_genome_R.R"
   "2d:osgc.R"
   "2e:moi_curves.R"
 )
 # 2a and 2b are micrographs with no generating code.
+#
+# 2c is not regenerated here either. The deposited genome map,
+# output/2c/ludmila_phold_circos.png and .svg, was written by Phold's own
+# plotting routine as step 07 of scripts/2c/genome_pipeline/. Reproducing it
+# needs the Phold databases and a structure-prediction pass, so it cannot run
+# from this repository; the pipeline scripts are deposited as the provenance
+# record instead.
 
 pass=0; fail=0; skip=0
 run_panel() {

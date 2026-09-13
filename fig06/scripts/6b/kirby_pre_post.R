@@ -23,7 +23,7 @@ dir.create(results_dir, recursive = TRUE, showWarnings = FALSE)
 
 INFILE      <- env_or("KB_FILE", "kirby_bauer_pre_post.tsv")
 DISC_MM     <- as.numeric(env_or("KB_DISC_MM", "6"))
-STAR_P      <- env_or("KB_STARS", "p")
+STAR_P      <- env_or("KB_STARS", "p_adj_all")
 TEST        <- env_or("KB_TEST", "welch")
 ABX_ORDER   <- env_csv("KB_ABX_ORDER",   c("VA", "LEV", "MEM", "SXT", "MH", "LZD"))
 GROUP_ORDER <- env_csv("KB_GROUP_ORDER", c("Pre", "Post"))

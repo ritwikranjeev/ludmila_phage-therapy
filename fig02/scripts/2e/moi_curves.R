@@ -59,16 +59,24 @@ SHOW_MOI  <- c("1", "0.1", "0.01", "0.001", "Bacteria Only", "Blank")
 # --- figure aesthetics -------------------------------------------------------
 fig_width <- 8.5; fig_height <- 6
 plot_margin <- margin(t = 12, r = 14, b = 10, l = 36, unit = "pt")
+# Panels are assembled several to a page in Canva and shrunk again, so default
+# type reads far too small in the finished layout. Every size is a multiple of
+# FIG_TEXT_SCALE; figure dimensions are unaffected.
+FIG_TEXT_SCALE <- as.numeric(env_or("FIG_TEXT_SCALE", 2))
+
+# theme_classic rather than theme_bw: axes only, no gridlines, no panel box.
 theme_ludmila <- function() {
-  theme_bw(base_size = 13, base_family = "Times New Roman") +
+  s <- FIG_TEXT_SCALE
+  theme_classic(base_size = 13 * s, base_family = "Times New Roman") +
     theme(
+      axis.line        = element_line(colour = "black", linewidth = 0.6),
+      axis.ticks       = element_line(colour = "black"),
       axis.title       = element_text(face = "bold"),
-      axis.title.x     = element_text(face = "bold", size = 14, margin = margin(t = 12, unit = "pt")),
-      axis.title.y     = element_text(face = "bold", size = 14, margin = margin(r = 12, unit = "pt")),
+      axis.title.x     = element_text(face = "bold", size = 14 * s, margin = margin(t = 12, unit = "pt")),
+      axis.title.y     = element_text(face = "bold", size = 14 * s, margin = margin(r = 12, unit = "pt")),
       axis.text        = element_text(face = "bold"),
       axis.text.x      = element_text(face = "bold", margin = margin(t = 6, unit = "pt")),
       axis.text.y      = element_text(face = "bold", margin = margin(r = 6, unit = "pt")),
-      panel.grid.minor = element_blank(),
       aspect.ratio     = fig_height / fig_width
     )
 }
@@ -128,7 +136,8 @@ p <- ggplot(plot_data, aes(x = Hours, y = avg, color = series)) +
   labs(x = "Time (hours)", y = "Absorbance (OD600)", tag = "B") +
   theme_ludmila() +
   theme(legend.position = "none", plot.margin = plot_margin,
-        plot.tag = element_text(size = 18, face = "bold", margin = margin(r = 12, unit = "pt")),
+        plot.tag = element_text(size = 18 * FIG_TEXT_SCALE, face = "bold",
+                                margin = margin(r = 12, unit = "pt")),
         plot.tag.position = "topleft")
 
 out <- file.path(results_dir, paste0("Ludmila_MOI_", STRAIN))
@@ -143,4 +152,38 @@ if (pdf_ok) {
 } else {
   message("wrote ", out, ".png and the source-data table",
           "   (no .pdf: cairo_pdf wrote no file)")
+}
+
+# --- legend as its own file, for panel assembly -------------------------------
+#
+# The panel draws no legend of its own (legend.position = "none") because the
+# figure is assembled in Canva, where one legend serves the whole figure. The
+# series are taken from plot_data rather than from `palette`, so the legend can
+# never list a curve the panel does not draw: SHOW_MOI, MOI_STRAIN and the
+# blank filter all apply before this point.
+if (requireNamespace("cowplot", quietly = TRUE)) {
+  lv <- levels(droplevels(plot_data$series))
+  leg_label <- function(x) ifelse(x %in% c("Bacteria Only", "Blank"), x, paste("MOI", x))
+  d_leg <- data.frame(x = seq_along(lv), y = 1,
+                      series = factor(lv, levels = lv))
+  p_leg <- ggplot(d_leg, aes(x = x, y = y, colour = series)) +
+    geom_line(aes(group = series), linewidth = 0.8) +
+    geom_point(size = 3) +
+    scale_color_manual(values = palette, labels = leg_label, name = NULL) +
+    theme_ludmila() +
+    theme(
+      legend.position = "bottom",
+      legend.text     = element_text(face = "bold"),
+      plot.background = element_rect(fill = "white", colour = NA)
+    )
+  leg <- cowplot::get_legend(p_leg)
+  if (!is.null(leg)) {
+    ggsave(paste0(out, "_legend.png"), cowplot::ggdraw(leg),
+           width = 9, height = 1.25, units = "in", dpi = FIG_DPI, bg = "white")
+    message("Wrote legend: ", basename(out), "_legend.png  (",
+            paste(leg_label(lv), collapse = ", "), ")")
+  }
+} else {
+  message("Package cowplot not installed; skipped the legend file.")
+  message("Install with: install.packages(\"cowplot\")")
 }

@@ -1,19 +1,26 @@
-# Supplementary Figure 6 — Kirby-Bauer zone diameters for every strain in one
-# 3 x 2 grid: the five in vitro ancestor/resistant comparisons plus the clinical
-# pre/post pair.
+# Supplementary Figure 6 — Kirby-Bauer zone diameters for the four in vitro
+# backgrounds not shown in the main figure, in a 2 x 2 grid.
+#
+# WHICH STRAINS AND WHY
+#
+# OCPT04SA01 and the clinical pre/post pair are deliberately absent: they are
+# Figure 6c and Figure 6b respectively, each drawn full size in the main figure.
+# The supplement carries the remaining four backgrounds — USA300, SA412,
+# OCPT02SA01 and PedCF — so nothing is duplicated between the two figures.
 #
 # Run with ../run.sh, which supplies FIG_DATA, FIG_OUT and FIG_SHARED.
 #
-# This figure has NO data and NO statistics of its own. It reads Figure 6's two
-# input files and Figure 6's helpers, so the test and the multiplicity
-# correction cannot drift between the main figure and the supplement. The
-# original kept a third near-duplicate script (kirby_combined.R, 350 lines) that
-# carried its own copy of the na_if(diameter_mm, 0) bug.
+# This figure has NO data and NO statistics of its own. It reads Figure 6's
+# input file and Figure 6's helpers, so the test and the multiplicity
+# correction cannot drift between the main figure and the supplement.
 #
-# One thing IS computed differently here, deliberately: the supplement shows all
-# 36 comparisons at once, so Benjamini-Hochberg is applied across the whole grid
-# rather than within each panel. That is the honest correction level for a
-# figure a reader takes in as one display item.
+# THE CORRECTION FAMILY IS THE FULL IN VITRO SET, NOT THE FOUR DRAWN
+#
+# The five-strain sheet is read and tested in full, and only four strains are
+# drawn. Testing the subset instead would make these four their own family of
+# 24 comparisons and the adjusted p-values would stop matching Supplementary
+# Table 3 and the Methods, which state that the in vitro comparisons are
+# corrected together.
 #
 # Optional overrides:
 #   KB_DISC_MM, KB_TEST, KB_STARS, KB_ABX_ORDER, KB_STRAIN_ORDER — as in
@@ -34,9 +41,19 @@ dir.create(results_dir, recursive = TRUE, showWarnings = FALSE)
 
 DISC_MM      <- as.numeric(env_or("KB_DISC_MM", "6"))
 TEST         <- env_or("KB_TEST", "welch")
-STAR_P       <- env_or("KB_STARS", "p")
+# p_adj_all is the per-panel Benjamini-Hochberg value carried over from
+# kirby_welch: across the 29 testable in vitro comparisons for the mutant
+# panels, and across the 6 clinical comparisons for the clinical panel. That is
+# the two-family correction the manuscript reports (clinical meropenem q =
+# 0.005). The alternative, p_adj_figure, pools all 36 into one family and gives
+# q = 0.028 for the same comparison. Both are defensible; they must not be
+# mixed between Figure 6 and this supplement.
+STAR_P       <- env_or("KB_STARS", "p_adj_all")
 ABX_ORDER    <- env_csv("KB_ABX_ORDER",    c("VA", "LEV", "MEM", "SXT", "MH", "LZD"))
-STRAIN_ORDER <- env_csv("KB_STRAIN_ORDER", c("USA300", "SA412", "OCPT02SA01", "OCPT04SA01", "PedCF"))
+# Strains DRAWN. OCPT04SA01 is excluded because it is Figure 6c; the clinical
+# pair is excluded because it is Figure 6b. The statistics below are still
+# computed over the full five-strain sheet — see the header.
+STRAIN_ORDER <- env_csv("KB_STRAIN_ORDER", c("USA300", "SA412", "OCPT02SA01", "PedCF"))
 NCOL         <- as.integer(env_or("S6_NCOL", "2"))
 
 panel_width  <- 6
@@ -48,41 +65,42 @@ if (!requireNamespace("cowplot", quietly = TRUE)) {
 
 # ---- read both inputs through Figure 6's reader ----------------------------
 
+# strain_order is NULL deliberately: every strain in the sheet is read, so the
+# test below runs over the full in vitro set. STRAIN_ORDER selects what is drawn.
 mutants <- read_kirby_long(
   file.path(data_dir, "6a", env_or("KB_FILE_6A", "kirby_bauer_in_vitro_mutants.tsv")),
   group_col = "Clone", group_levels = c("Ancestor", "Resistant"),
-  abx_order = ABX_ORDER, strain_order = STRAIN_ORDER
-)
-clinical <- read_kirby_long(
-  file.path(data_dir, "6b", env_or("KB_FILE_6B", "kirby_bauer_pre_post.tsv")),
-  group_col = "Clone", group_levels = c("Pre", "Post"),
   abx_order = ABX_ORDER, strain_order = NULL
 )
+mutants <- check_disc_floor(mutants, DISC_MM)
 
-mutants  <- check_disc_floor(mutants,  DISC_MM)
-clinical <- check_disc_floor(clinical, DISC_MM)
+missing <- setdiff(STRAIN_ORDER, levels(mutants$Strain))
+if (length(missing)) {
+  stop("KB_STRAIN_ORDER names strains not in the sheet: ",
+       paste(missing, collapse = ", "),
+       ". Available: ", paste(levels(mutants$Strain), collapse = ", "))
+}
 
 # ---- statistics over the whole grid ----------------------------------------
 
-st_mut <- kirby_welch(mutants,  by_strain = TRUE,  test = TEST)
-st_cln <- kirby_welch(clinical, by_strain = FALSE, test = TEST)
-st_cln$Strain <- "Clinical"
+# Tested over every strain in the sheet, not just the four drawn, so p_adj_all
+# is the same in vitro correction family the manuscript reports.
+all_stats <- kirby_welch(mutants, by_strain = TRUE, test = TEST)
 
-common <- intersect(names(st_mut), names(st_cln))
-all_stats <- rbind(st_mut[, common, drop = FALSE], st_cln[, common, drop = FALSE])
-
-# One correction across every comparison shown in this figure.
+# Alternative correction, computed over the in vitro comparisons only. The
+# clinical pair is not in this figure, so it is not in this family either.
 all_stats$p_adj_figure <- stats::p.adjust(all_stats$p, method = "BH")
 
 utils::write.table(all_stats, file.path(results_dir, "kirby_combined_stats.tsv"),
                    sep = "\t", quote = FALSE, row.names = FALSE, na = "NA")
 
 n_tested <- sum(!is.na(all_stats$p))
-message("Comparisons drawn: ", nrow(all_stats), "; tested: ", n_tested,
-        "; test: ", TEST)
+message("Comparisons tested: ", n_tested, " across ",
+        length(levels(mutants$Strain)), " strains; drawn: ",
+        length(STRAIN_ORDER), " strains (", paste(STRAIN_ORDER, collapse = ", "), ")")
 message("Nominally p <= 0.05: ",
         sum(all_stats$p <= 0.05, na.rm = TRUE),
-        " | BH across the whole figure q < 0.05: ",
+        " | BH across the in vitro set q < 0.05: ",
         sum(all_stats$p_adj_figure < 0.05, na.rm = TRUE))
 sig <- all_stats[!is.na(all_stats$p_adj_figure) & all_stats$p_adj_figure < 0.05, , drop = FALSE]
 if (nrow(sig)) {
@@ -92,7 +110,7 @@ if (nrow(sig)) {
   }
 }
 
-# ---- one panel per strain, plus the clinical pair ---------------------------
+# ---- one panel per drawn strain ---------------------------------------------
 
 # Stars in the supplement follow the figure-wide correction unless KB_STARS
 # names a different column.
@@ -115,7 +133,7 @@ build_panel <- function(long, stats_df, strain, title, by_strain, show_y) {
                      fill_values = fill_values, facet_by_strain = FALSE,
                      fig_width = panel_width, fig_height = panel_height) +
     ggtitle(title) +
-    theme(plot.title = element_text(face = "bold", size = 12, hjust = 0.5,
+    theme(plot.title = element_text(face = "bold", size = 12 * FIG_TEXT_SCALE, hjust = 0.5,
                                     margin = margin(b = 6, unit = "pt")))
   if (!show_y) p <- p + labs(y = NULL)
   p
@@ -127,9 +145,6 @@ for (s in STRAIN_ORDER) {
     mutants, all_stats, s, s, by_strain = TRUE,
     show_y = (length(panels) %% NCOL == 0L))
 }
-panels[[length(panels) + 1L]] <- build_panel(
-  clinical, all_stats, "Clinical", "Clinical pre vs post", by_strain = FALSE,
-  show_y = (length(panels) %% NCOL == 0L))
 
 nrow_grid <- ceiling(length(panels) / NCOL)
 combined  <- cowplot::plot_grid(plotlist = panels, ncol = NCOL, align = "hv",
@@ -149,7 +164,8 @@ if (save_pdf_best_effort(combined, paste0(out_base, ".pdf"), width = fig_width,
   message("Wrote: ", out_base, ".png   (no .pdf: cairo_pdf wrote no file)")
 }
 
+# Only one legend now: every panel in this figure is an ancestor/resistant
+# comparison. The Pre/Post legend belonged to the clinical panel, which has
+# moved to Figure 6b and carries its own.
 save_group_legend(stats::setNames(c("white", "gray20"), c("Ancestor", "Resistant")),
-                  file.path(results_dir, "kirby_combined_legend_mutants.png"))
-save_group_legend(stats::setNames(c("white", "gray20"), c("Pre", "Post")),
-                  file.path(results_dir, "kirby_combined_legend_clinical.png"))
+                  file.path(results_dir, "kirby_combined_legend.png"))

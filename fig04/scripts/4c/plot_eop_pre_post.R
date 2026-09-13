@@ -47,20 +47,23 @@ fig_width   <- 8.5
 fig_height  <- 6
 plot_margin <- ggplot2::margin(t = 12, r = 14, b = 10, l = 36, unit = "pt")
 
+# Panels are assembled several to a page in Canva and shrunk again, so default
+# type reads far too small. Every size is a multiple of FIG_TEXT_SCALE;
+# dimensions are unaffected. theme_classic: axes only, no gridlines, no box.
+FIG_TEXT_SCALE <- as.numeric(env_or("FIG_TEXT_SCALE", 2))
+
 theme_ludmila_bar <- function() {
-  theme_bw(base_size = 13, base_family = "Times New Roman") +
+  s <- FIG_TEXT_SCALE
+  theme_classic(base_size = 13 * s, base_family = "Times New Roman") +
     theme(
       axis.title       = element_text(face = "bold", colour = "black"),
-      axis.title.x     = element_text(face = "bold", size = 14, colour = "black", margin = margin(t = 12, unit = "pt")),
-      axis.title.y     = element_text(face = "bold", size = 14, colour = "black", margin = margin(r = 12, unit = "pt")),
+      axis.title.x     = element_text(face = "bold", size = 14 * s, colour = "black", margin = margin(t = 12, unit = "pt")),
+      axis.title.y     = element_text(face = "bold", size = 14 * s, colour = "black", margin = margin(r = 12, unit = "pt")),
       axis.text        = element_text(face = "bold", colour = "black"),
       axis.text.x      = element_text(face = "bold", colour = "black", margin = margin(t = 6, unit = "pt")),
       axis.text.y      = element_text(face = "bold", colour = "black", margin = margin(r = 6, unit = "pt")),
-      panel.grid.major.x = element_blank(),
-      panel.grid.minor   = element_blank(),
-      panel.border       = element_rect(colour = "black", fill = NA, linewidth = 0.5),
       axis.ticks         = element_line(colour = "black", linewidth = 0.5),
-      axis.line          = element_line(colour = "black", linewidth = 0.5),
+      axis.line          = element_line(colour = "black", linewidth = 0.6),
       aspect.ratio       = NULL,
       plot.margin        = plot_margin
     )
@@ -158,7 +161,7 @@ p <- ggplot(df, aes(x = Group, y = EOP_mean, fill = Group)) +
   annotate("segment", x = 1, xend = 2, y = ann_base, yend = ann_base, linewidth = 0.5, color = "gray20") +
   annotate(
     "text", x = 1.5, y = ann_text, label = sig_label,
-    size = 5.2, family = "Times New Roman", fontface = "bold"
+    size = 5.2 * FIG_TEXT_SCALE, family = "Times New Roman", fontface = "bold"
   ) +
   scale_fill_manual(values = fill_vals, guide = "none") +
   scale_x_discrete(

@@ -38,20 +38,26 @@ fig_width   <- 8.5
 fig_height  <- 6
 plot_margin <- ggplot2::margin(t = 12, r = 14, b = 10, l = 36, unit = "pt")
 
+# Panels are assembled several to a page in Canva and shrunk again, so default
+# type reads far too small in the finished layout. Every size is a multiple of
+# FIG_TEXT_SCALE; figure dimensions are unaffected.
+FIG_TEXT_SCALE <- as.numeric(env_or("FIG_TEXT_SCALE", 2))
+
+# theme_classic rather than theme_bw: axes only, no gridlines, no panel box.
+# The explicit panel.border that used to draw the box is gone with it.
 theme_ludmila <- function() {
-  theme_bw(base_size = 13, base_family = "Times New Roman") +
+  s <- FIG_TEXT_SCALE
+  theme_classic(base_size = 13 * s, base_family = "Times New Roman") +
     theme(
       axis.title       = element_text(face = "bold", colour = "black"),
-      axis.title.x     = element_text(face = "bold", size = 14, colour = "black", margin = margin(t = 12, unit = "pt")),
-      axis.title.y     = element_text(face = "bold", size = 14, colour = "black", margin = margin(r = 12, unit = "pt")),
+      axis.title.x     = element_text(face = "bold", size = 14 * s, colour = "black", margin = margin(t = 12, unit = "pt")),
+      axis.title.y     = element_text(face = "bold", size = 14 * s, colour = "black", margin = margin(r = 12, unit = "pt")),
       axis.text        = element_text(face = "bold", colour = "black"),
       axis.text.x      = element_text(face = "bold", colour = "black", margin = margin(t = 6, unit = "pt")),
       axis.text.y      = element_text(face = "bold", colour = "black", margin = margin(r = 6, unit = "pt")),
-      panel.grid.minor = element_blank(),
       aspect.ratio     = fig_height / fig_width,
-      panel.border     = element_rect(colour = "black", fill = NA, linewidth = 0.5),
       axis.ticks       = element_line(colour = "black", linewidth = 0.5),
-      axis.line        = element_line(colour = "black", linewidth = 0.5)
+      axis.line        = element_line(colour = "black", linewidth = 0.6)
     )
 }
 

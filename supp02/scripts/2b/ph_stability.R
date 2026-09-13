@@ -44,7 +44,7 @@ p <- ggplot(sum_df, aes(x = x, y = mean)) +
          sprintf("One-way ANOVA across pH; error bars are SD of %d technical replicates",
                  length(d$titer_cols)) else NULL) +
   theme_ludmila(fig_width, fig_height) +
-  theme(plot.subtitle = element_text(size = 9, hjust = 0,
+  theme(plot.subtitle = element_text(size = 9 * FIG_TEXT_SCALE, hjust = 0,
                                      margin = margin(b = 8, unit = "pt"))) +
   theme(plot.margin = margin(t = 12, r = 14, b = 10, l = 36, unit = "pt")) +
   coord_cartesian(clip = "off")

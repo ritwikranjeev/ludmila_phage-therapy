@@ -25,10 +25,13 @@ cd "$(dirname "$0")"
 mkdir -p logs
 pass=0; fail=0; want="${1:-}"
 
+# run_panel <panel> <script> [data_panel]
+# data_panel defaults to <panel>; 6c reads 6a's sheet because it draws one
+# strain out of the five-strain in vitro set.
 run_panel() {
-  local panel="$1" script="$2"
+  local panel="$1" script="$2" data_panel="${3:-$1}"
   [ -n "$want" ] && [ "$want" != "$panel" ] && return
-  if FIG_DATA="$PWD/data/$panel" FIG_OUT="$PWD/output/$panel" \
+  if FIG_DATA="$PWD/data/$data_panel" FIG_OUT="$PWD/output/$panel" \
      FIG_SHARED="$PWD/scripts/_shared.R" \
      Rscript "scripts/$panel/$script" > "logs/$panel.log" 2>&1; then
     printf '  OK    %-3s %-28s -> output/%s/\n' "$panel" "$script" "$panel"; pass=$((pass+1))
@@ -40,5 +43,6 @@ run_panel() {
 echo "Figure 6"
 run_panel 6a kirby_in_vitro_mutants.R
 run_panel 6b kirby_pre_post.R
+run_panel 6c kirby_ocpt04sa01.R 6a
 echo
 echo "  passed $pass   failed $fail"

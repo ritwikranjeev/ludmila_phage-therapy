@@ -50,17 +50,24 @@ env_num <- function(v, default) {
   as.numeric(trimws(strsplit(x, ",", fixed = TRUE)[[1L]]))
 }
 
+# Panels are assembled several to a page in Canva and shrunk again, so default
+# type reads far too small in the finished layout. Every size is a multiple of
+# FIG_TEXT_SCALE; figure dimensions are unaffected.
+FIG_TEXT_SCALE <- as.numeric(env_or("FIG_TEXT_SCALE", 2))
+
+# theme_classic rather than theme_bw: axes only, no gridlines, no panel box.
 theme_ludmila <- function(fig_width, fig_height) {
-  theme_bw(base_size = 13, base_family = "Times New Roman") +
+  s <- FIG_TEXT_SCALE
+  theme_classic(base_size = 13 * s, base_family = "Times New Roman") +
     theme(
+      axis.line        = element_line(colour = "black", linewidth = 0.6),
+      axis.ticks       = element_line(colour = "black"),
       axis.title       = element_text(face = "bold", colour = "black"),
-      axis.title.x     = element_text(face = "bold", size = 14, colour = "black",
+      axis.title.x     = element_text(face = "bold", size = 14 * s, colour = "black",
                                       margin = margin(t = 12, unit = "pt")),
-      axis.title.y     = element_text(face = "bold", size = 14, colour = "black",
+      axis.title.y     = element_text(face = "bold", size = 14 * s, colour = "black",
                                       margin = margin(r = 12, unit = "pt")),
       axis.text        = element_text(face = "bold", colour = "black"),
-      panel.grid.minor = element_blank(),
-      panel.grid.major.x = element_blank(),
       aspect.ratio     = fig_height / fig_width
     )
 }
@@ -111,11 +118,42 @@ welch <- function(x, y, label) {
   )
 }
 
+# ---- significance annotation -----------------------------------------------
+
+# Both panels carry the p-value in the subtitle, but the subtitle is suppressed
+# at render time (FIG_SUBTITLE=0) because captions are written during panel
+# assembly. Without a bracket the rendered PNG therefore shows no statistics at
+# all. This draws the comparison onto the panel itself.
+#
+#   S4_SIG_LABEL=stars   *** p<0.001, ** p<0.01, * p<0.05, ns otherwise (default)
+#   S4_SIG_LABEL=p       the exact p-value, which is more informative when there
+#                        is only one comparison in the panel
+SIG_LABEL <- env_or("S4_SIG_LABEL", "stars")
+
+p_stars <- function(p) {
+  if (is.na(p)) return(NA_character_)
+  if (p < 0.001) "***" else if (p < 0.01) "**" else if (p < 0.05) "*" else "ns"
+}
+
+sig_text <- function(p) {
+  if (is.na(p)) return(NA_character_)
+  if (identical(SIG_LABEL, "p")) {
+    if (p < 0.001) "p < 0.001" else sprintf("p = %.3g", p)
+  } else {
+    p_stars(p)
+  }
+}
+
 # ---- plot ------------------------------------------------------------------
 
 # Two-bar comparison with replicate points, used by both panels.
+#
+# p_value draws a significance bracket spanning the two bars. The bracket clears
+# the taller of (bar + SD) and the highest replicate point, and the y-axis gains
+# extra headroom so it is not clipped.
 two_group_bar <- function(values, labels, y_lab, fig_width, fig_height,
-                          fill_values = c("white", "gray20"), subtitle = NULL) {
+                          fill_values = c("white", "gray20"), subtitle = NULL,
+                          p_value = NA_real_) {
   sum_df <- data.frame(
     group = factor(labels, levels = labels),
     mean  = vapply(values, mean, numeric(1)),
@@ -127,7 +165,17 @@ two_group_bar <- function(values, labels, y_lab, fig_width, fig_height,
                stringsAsFactors = FALSE)
   }))
 
-  ggplot(sum_df, aes(x = group, y = mean, fill = group)) +
+  lab      <- sig_text(p_value)
+  draw_sig <- !is.na(lab) && length(labels) == 2L
+
+  # Bracket geometry, as a fraction of the tallest drawn element. The y-axis
+  # starts at 0, so proportions of `top` are proportions of the drawn range.
+  top      <- max(c(sum_df$mean + sum_df$sd, pts$value), na.rm = TRUE)
+  y_tip    <- top * 1.06     # bottom of the two vertical tips
+  y_bar    <- top * 1.11     # the horizontal span
+  headroom <- if (draw_sig) 0.24 else 0.10
+
+  p <- ggplot(sum_df, aes(x = group, y = mean, fill = group)) +
     geom_col(width = 0.6, colour = "gray20", linewidth = 0.6) +
     geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd),
                   width = 0.2, colour = "gray20", linewidth = 0.5) +
@@ -135,11 +183,32 @@ two_group_bar <- function(values, labels, y_lab, fig_width, fig_height,
                position = position_jitter(width = 0.08, height = 0, seed = 1L),
                size = 1.9, alpha = 0.8, colour = "gray30") +
     scale_fill_manual(values = stats::setNames(fill_values, labels), guide = "none") +
-    scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+    scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, headroom))) +
     labs(x = NULL, y = y_lab, subtitle = if (FIG_SUBTITLE) subtitle else NULL) +
     theme_ludmila(fig_width, fig_height) +
-    theme(plot.subtitle = element_text(size = 9, hjust = 0,
-                                       margin = margin(b = 8, unit = "pt")))
+    theme(
+      plot.subtitle = element_text(size = 9 * FIG_TEXT_SCALE, hjust = 0,
+                                   margin = margin(b = 8, unit = "pt")),
+      # Left margin matches the other figures in the set and gives the rotated
+      # y-axis title room at the enlarged type size.
+      plot.margin   = margin(t = 12, r = 14, b = 10, l = 36, unit = "pt")
+    )
+
+  if (draw_sig) {
+    stars <- !identical(SIG_LABEL, "p")
+    p <- p +
+      annotate("path", x = c(1, 1, 2, 2), y = c(y_tip, y_bar, y_bar, y_tip),
+               colour = "black", linewidth = 0.5) +
+      annotate("text", x = 1.5, y = y_bar, label = lab,
+               # asterisk glyphs sit high in the em box, so they need less lift
+               # than a text label to clear the bracket by the same amount
+               vjust = if (stars) 0.15 else -0.35,
+               # geom/annotate sizes are in mm, not points, but scale with the
+               # rest of the type so the bracket label keeps its proportions
+               size  = (if (stars) 6.0 else 4.0) * FIG_TEXT_SCALE,
+               family = "Times New Roman", fontface = "bold", colour = "black")
+  }
+  p
 }
 
 save_panel <- function(p, out_base, fig_width, fig_height) {

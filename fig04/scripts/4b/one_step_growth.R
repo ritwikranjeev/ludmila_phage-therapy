@@ -63,7 +63,7 @@ plot_osgc_two <- function(df, outfile, title = NULL, export_legend = FALSE) {
           show.legend = FALSE,
           family = "Times New Roman",
           fontface = "bold",
-          size = 5.2,
+          size = 5.2 * FIG_TEXT_SCALE,
           color = "black"
         )
       } else {

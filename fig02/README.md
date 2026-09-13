@@ -35,28 +35,14 @@ the assembly parameters more precisely than the wrapper script alone.
 
 ### Which script drew the deposited panel
 
-Two routes to a circular genome map exist, and it matters which is which.
-
 `output/2c/ludmila_phold_circos.png` and `.svg` — the files deposited here and
 used in the manuscript — were written by **step 07, Phold's plotting routine**
 (the PNG metadata records matplotlib as the writing library). Regenerating them
-requires re-running the Phold steps, which need the Phold databases and a GPU or
-CPU structure-prediction pass; they are not reproducible from the files in
-`data/2c/` alone.
-
-`scripts/2c/circos_genome_R.R` is a **separate, self-contained R implementation**
-of the same idea, using circlize and rtracklayer. It reads `Ludmila.fasta`,
-`pharokka.gff` and `pharokka.gbk` — all three of which are deposited in
-`data/2c/` — and writes `ludmila_circos.pdf`. It therefore runs from this
-repository with no external database, but it produces its own rendering rather
-than reproducing the deposited Phold figure.
-
-```
-Rscript scripts/2c/circos_genome_R.R <project_root> <output_dir>
-```
-
-Requires `install.packages("circlize")` and
-`BiocManager::install("rtracklayer")`.
+requires re-running the Phold steps, which need the Phold databases and a
+structure-prediction pass; they are not reproducible from the files in
+`data/2c/` alone, and `./run.sh` therefore does not attempt to rebuild this
+panel. The annotation inputs are deposited in `data/2c/` so the deposited figure
+can be checked against them.
 
 ## Panels 2d and 2e
 

@@ -72,7 +72,7 @@ plot_roa_two_attached <- function(df, outfile, title = NULL) {
           show.legend = FALSE,
           family = "Times New Roman",
           fontface = "bold",
-          size = 5.2,
+          size = 5.2 * FIG_TEXT_SCALE,
           color = "black"
         )
       } else {

@@ -50,8 +50,12 @@ LABELS  <- env_csv("S4_LABELS", c("Pre", "Post"))
 HOST_N  <- as.numeric(env_or("S4_HOST_DENSITY", "1e8"))
 WINDOW  <- env_num("S4_WINDOW", c(2, 6))
 
-fig_width  <- 5.5
-fig_height <- 5
+# Enlarged from 5.5 x 5 when FIG_TEXT_SCALE doubled the type: point sizes are
+# absolute, so on the old canvas the rotated y-axis title ran out of room and
+# was clipped. Both dimensions are scaled by the same factor, so the panel
+# proportions (aspect.ratio = fig_height / fig_width) are unchanged.
+fig_width  <- 8.25
+fig_height <- 7.5
 
 d <- read_timecourse(file.path(data_dir, INFILE), GROUPS, LABELS)
 tm <- d$time
@@ -151,7 +155,8 @@ p <- two_group_bar(
   fig_width = fig_width, fig_height = fig_height,
   subtitle = sprintf(
     "Log-linear fit %g-%g min; Welch on k_obs, p = %.3g; ratio %.2f. k shown at assumed N = %s CFU/mL.",
-    WINDOW[1L], WINDOW[2L], res$p, res$ratio, format(HOST_N, scientific = TRUE))
+    WINDOW[1L], WINDOW[2L], res$p, res$ratio, format(HOST_N, scientific = TRUE)),
+  p_value = res$p
 )
 
 save_panel(p, file.path(results_dir, "adsorption_rate"), fig_width, fig_height)
